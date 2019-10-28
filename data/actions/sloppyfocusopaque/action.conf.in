@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<!DOCTYPE waimea SYSTEM "@pkgdatadir@/waimea.dtd">
+
+<waimea version="@pkgversion@">
+
+  <actionlist name="empty"/>
+
+  <include ignore_missing="true">~/.waimea/pre-action.conf</include>
+
+  <include>@pkgdatadir@/actions/key-bindings.conf</include>
+  <include>@pkgdatadir@/actions/button-mappings.conf</include>
+  <include>@pkgdatadir@/actions/common.conf</include>
+
+  <actionlist name="window-frame-enter">
+    <action function="windowfocus" event="enternotify">
+      <modifier name="windowstatetasklist"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-all">
+    <action function="windowfocus"
+            event="buttonpress"
+            button="button1">
+      <modifier constraint="must_not_exist" name="mod1"/>
+    </action>
+    <inherit>window-button-mappings</inherit>
+    <action function="windowstartopaquemove"
+            event="buttonpress"
+            button="button1">
+      <modifier name="mod1"/>
+    </action>
+    <action function="windowstartopaqueresizesmart"
+            event="buttonpress"
+            detail="button3">
+      <modifier name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button3">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor">
+    <inherit>window-all</inherit>
+  </actionlist>
+
+  <actionlist name="window-decor-move">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaquemove"
+            event="buttonpress"
+            button="button1">
+        <modifier constraint="must_not_exist" name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-up">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizeup"
+            event="buttonpress"
+            button="button1">
+      <modifier constraint="must_not_exist" name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-down">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizedown"
+            event="buttonpress"
+            button="button1">
+      <modifier constraint="must_not_exist" name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-left">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizeleft"
+            event="buttonpress"
+            button="button1">
+      <modifier constraint="must_not_exist" name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-right">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizeright"
+            event="buttonpress"
+            button="button1">
+      <modifier constraint="must_not_exist" name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-upleft">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizeupleft"
+            event="buttonpress"
+            button="button1"/>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-downleft">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizedownleft"
+            event="buttonpress"
+            button="button1"/>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-upright">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizeupright"
+            event="buttonpress"
+            button="button1"/>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-resize-downright">
+    <inherit>window-decor</inherit>
+    <action function="windowstartopaqueresizedownright"
+            event="buttonpress"
+            button="button1"/>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-decor-enter">
+    <action function="windowfocus" event="enternotify">
+      <modifier name="windowstatetasklist"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-client-passive">
+    <action function="windowfocus" event="enternotify">
+      <modifier name="windowstatetasklist"/>
+    </action>
+    <inherit>window-client-map</inherit>
+    <inherit>window-button-mappings</inherit>
+    <action function="windowraise"
+            event="buttonpress"
+            button="button1">
+      <modifier name="mod1"/>
+    </action>
+    <action function="windowstartopaquemove"
+            event="buttonpress"
+            button="button1">
+      <modifier name="mod1"/>
+    </action>
+    <action function="windowstartopaqueresizesmart"
+            event="buttonpress"
+            detail="button3">
+      <modifier name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button3">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist> 
+
+  <actionlist name="window-client-active">
+    <inherit>window-client-passive</inherit>
+    <inherit>window-key-bindings</inherit>
+  </actionlist>
+
+  <match target="window" window="^client$" 
+         actionlist="window-client-passive"/>
+  <match target="window" window="^client$" state="active"
+         actionlist="window-client-active"/>
+
+  <actionlist name="root-enter"/>
+
+  <actionlist name="root-background">
+    <inherit>global-key-bindings</inherit>
+    <inherit>root-button-mappings</inherit>    
+  </actionlist>
+
+  <match target="root" window="^root$" name=".*" actionlist="root-background"/>
+
+  <actionlist name="menu-item-move">
+    <action function="menustartopaquemove"
+            event="buttonpress"
+            button="button1"/>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <include ignore_missing="true">~/.waimea/post-action.conf</include>
+
+</waimea>

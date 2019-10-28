@@ -1,0 +1,23 @@
+Source: meawm_ng
+Section: x11
+Priority: optional
+Maintainer: Nobuhiro Iwamatsu <hemamu@t-base.ne.jp>
+Build-Depends: debhelper (>> 4.0.0), libfreetype6-dev (>>2.1.7), xlibs-dev (>>4.2.1), libcairo1-dev ( >> 0.3.0) ,libpng12-dev(>>1.2.8),libsvg1-dev(>> 0.1.2) , libxrender-dev(>>0.8.3) , libxcursor-dev(>>1.1.3)
+Standards-Version: 3.5.2
+
+Package: meawm_ng
+Architecture: any
+Provides: x-window-manager
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests:menu (>=1.5)
+Provides: x-window-manager
+Description: A highly customizable window manager based on blackbox
+ The design goal for meawm_ng is to create the most efficient
+ desktop  working  environment  available.  To  achieve
+ this meawm_ng is a fast and highly customizable virtual desktop
+ window manager.  It uses blackbox image  rendering
+ engine (blackbox styles support) and can use  Xft library
+ for  font  rendering (anti-aliased font support). It also
+ features a very advanced configuration system  with which
+ it's  possible  to make meawm_ng behave as almost any other
+ window manager.

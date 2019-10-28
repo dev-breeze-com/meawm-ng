@@ -1,0 +1,294 @@
+.\"
+.\" Man page for meawm_ng
+.\" 
+.\" This manual page may be freely distributed and modified.
+.\" Author: David Reveman <davidr@meawm_ng.org>
+.\" 
+.TH WAIMEA 1 "" "@pkgversion@" "User Manual"
+
+
+.SH NAME
+Meawm_NG \- an X11 window manager
+
+
+.SH SYNOPSIS
+.B meawm_ng 
+[--display=DISPLAYNAME] [--rcfile=FILE] [--screen-mask=SCREENS] 
+[--script-dir=PATH] [--double-click=INTERVAL] [-c] 
+[--client-side] [--threads=NUMBER] [--thread-priority=VALUE] 
+[--actionfile=FILE] [--stylefile=FILE] [--menufile=FILE] 
+[--desktops=NUMBER] [--desktop-names=LIST] [--virtual-size=SIZE] 
+[--menu-stacking=TYPE] [--dh-stacking=TYPE] [-t] 
+[--transient-not-above] [-r] [--revert-to-root] [-e] [--external-bg]
+[--info-command] [--warning-command] [--usage] [--help] [--version]
+
+
+.SH DESCRIPTION
+
+Meawm_NG is a highly customizable window manager for the X Window system 
+conforming to the latest EWMH specification. Meawm_NG supports multiple
+virtual desktops and by using the cairo graphics library for all
+rendering, meawm_ng provides a modern vector-based style engine that
+takes advantage of display hardware acceleration when available (through 
+the X Render Extension).
+
+
+.SH OPTIONS
+.TP
+.B "--display DISPLAYNAME"
+X server to contact
+
+.TP
+.B "--rcfile RESOURCEFILE"
+Use the alternate
+.I RESOURCEFILE
+instead of
+.IR ~/.meawm_ngrc
+and
+.IR @pkgdatadir@/meawm_ngrc.
+
+.TP
+.B "--usage"
+Display brief usage message
+
+.TP
+.B "--help"
+Show full help message
+
+.TP
+.B "--version"
+Output version information and exit
+
+.P
+Every setting avaiable in the
+.B RESOURCE FILE
+have an eqvivalent command line option that will override the
+setting in the 
+.B RESOURCE FILE.
+
+
+.SH "RESOURCE FILE"
+When starting, meawm_ng looks for a  
+.I .meawm_ngrc 
+resource file in the users home directory. If file doesn't exist, meawm_ng 
+falls back to 
+.I @pkgdatadir@/meawm_ngrc, 
+the system wide configuration file. To force meawm_ng to read a different
+configuration file use 
+.I --rcfile
+switch. Below is a list of configuration options that meawm_ng understands.
+
+.TP
+.B  screenMask:     List of screen numbers
+Whitespace separated list of screens that meawm_ng should manage. 
+If you for example want meawm_ng to handle only screen .0 and 
+screen .2, then screenMask should be: '0 2'.
+Option '--screen-mask' will override this setting.
+
+.TP
+.B scriptDir:     Dirpath
+Path to alternate scripts directory
+instead of
+.IR @pkgdatadir@/scripts.
+.I scriptDir 
+is added to the PATH environment variable so that executables
+in this directory can be called without directory path within
+meawm_ng.
+Option '--script-dir' will override this setting.
+
+.TP
+.B doubleClickInterval:     Integer
+Adjust the delay (in milliseconds) between mouse clicks for meawm_ng
+to consider it a double click. Default value is 
+.I 300.
+Option '--double-click' will override this setting.
+
+.TP
+.B clientSideRendering:     Boolean
+Force meawm_ng to use client side rendering of all graphics.
+Option '--client-side' will override this setting.
+
+.TP
+.B renderingThreads:     Integer
+Number of threads to use for rendering. The main thread
+will perform all rendering when set to 
+.I 0. 
+Having one or more threads doing rendering can produce smoother
+graphic updates especially when using client-side rendering.
+Default value is
+.I 1.
+Option '--threads' will override this setting.
+
+.TP
+.B renderingThreadPriority:     Integer
+Priority of rendering threads. From -20 to 20, 20 being lowest priority
+and -20 being real time priority. For most systems only priority values 
+higher than the priority of the main thread is allowed. Default the 
+priority is inherited from main thread.
+Option '--thread-priority' will override this setting.
+
+.P
+When running meawm_ng on display with multiple screens the screen0 key in
+the following configuration options can also be screen1, 2 etc. for any 
+appropriate screen.
+
+.TP
+.B screen0.actionFile:     Filepath
+Path to alternate
+.I ACTIONFILE
+instead of
+.IR @pkgdatadir@/meawm_ng.conf.
+Option '--actionfile' will override this setting.
+
+.TP
+.B  screen0.styleFile:     Filepath
+Path to alternate
+.I STYLEFILE
+instead of
+.I @pkgdatadir@/meawm_ng.conf.
+Option '--stylefile' will override this setting.
+
+.TP
+.B  screen0.menuFile:     Filepath
+Path to alternate
+.I MENUFILE
+instead of
+.I @pkgdatadir@/meawm_ng.conf.
+Option '--menufile' will override this setting.
+
+.TP
+.B  screen0.numberOfDesktops:     Integer
+This tells meawm_ng how many virtual desktops we should use. 
+Default value is 
+.I 4.
+Option '--desktops' will override this setting.
+
+.TP
+.B  screen0.desktopNames:     List of desktop names
+A comma separated list of desktop names.
+Option '--desktop-names' will override this setting.
+
+.TP
+.B screen0.virtualSize:     IntegerxInteger
+Tells meawm_ng what virtual desktop size to use. Example:
+.I 3x3
+will set the virtual desktop size to three times screen height 
+in virtual height and three times screen width in virtual width.
+Default value is 
+.I 3x3.
+Option '--virtual-size' will override this setting.
+
+.TP
+.B screen0.defaultMenuStacking:     StackingType
+Tells meawm_ng what the default stacking type to use for menus should be.
+Can be one of: AlwaysOnTop, AlwaysAtBottom or Normal.
+Default type is
+.I AlwaysOnTop.
+Option '--menu-stacking' will override this setting.
+
+.TP
+.B screen0.defaultDockappHolderStacking:     StackingType
+Tells meawm_ng what the default stacking type to use for dockappholders 
+should be. Can be one of: AlwaysOnTop, AlwaysAtBottom or Normal.
+Default type is
+.I AlwaysOnTop.
+Option '--dh-stacking' will override this setting.
+
+.TP
+.B screen0.transientNotAbove:     Boolean
+Tells meawm_ng not to use special handling of transient windows. By default
+meawm_ng will always keep transient windows above and focused relative to the
+the 'transient for' window.
+Default value is
+.I False.
+Option '--transient-not-above' will override this setting.
+
+.TP
+.B screen0.focusRevertToRoot:     Boolean
+By default meawm_ng revert focus to last focused window, setting this option
+to 'True' will instead make meawm_ng revert focus to root window.
+Default value is
+.I False.
+Option '--revert-to-root' will override this setting.
+
+.TP
+.B screen0.externalBackground:     Boolean
+By default meawm_ng render and set the background image. If you instead
+want to use an external program to set the root background set this
+to 'True' and meawm_ng will never render or set the background image.
+Default value is
+.I False.
+Option '--external-bg' will override this setting.
+
+.TP
+.B screen0.infoCommand:     String
+Shell command used for showing info messages. Info messages are
+messages that normal users are usually interested in. 
+Shell command is in meawm_ng expandable string format, '\\m' is expanded
+into the info message string and '\\f' is expanded into name of function 
+the generated the message. For a list of all character sequences that 
+are expanded see the Document Type Definition
+.B @pkgdatadir@/meawm_ng.dtd.
+All '\\' character must be escaped in resource 
+files to be preserved for meawm_ng, so character sequence '\\\\m' must be
+used where info message should be expanded.
+Option '--info-command' will override this setting.
+
+.TP
+.B screen0.warningCommand:     String
+Shell command used for showing warning messages. Warning messages are
+messages that normal users are usually not interested in. 
+Shell command is in meawm_ng expandable string format, '\\m' is expanded
+into the warning message string and '\\f' is expanded into name of function 
+the generated the message. For a list of all character sequences that 
+are expanded see the Document Type Definition
+.B @pkgdatadir@/meawm_ng.dtd.
+All '\\' character must be escaped in resource 
+files to be preserved for meawm_ng, so character sequence '\\\\m' must be
+used where info message should be expanded.
+Option '--warning-command' will override this setting.
+
+
+.SH CONFIGURATION
+
+Meawm_NG configuration files are in XML format. They can be read from
+files and output of executables. When meawm_ng starts it reads three 
+configuration files, 'actionFile', 'styleFile' and 'menuFile'. 
+It's possible to read additional configuration files while meawm_ng
+is running by using the action functions provided or by sending 
+configuration file data from another X client to meawm_ng.
+
+.P
+For the current format of configuration files, see the 
+Document Type Definition
+.B @pkgdatadir@/meawm_ng.dtd.
+
+.SH FILES
+.TP
+.B ~/.meawm_ngrc
+User resource file. See
+.I "RESOURCE FILE"
+section for further details.
+
+.TP
+.B @pkgdatadir@/meawm_ngrc
+The system wide resource file. See
+.I "RESOURCE FILE"
+section for further details.
+
+.TP
+.B @pkgdatadir@/meawm_ng.dtd
+Document Type Definition for configuration files.
+
+.SH BUGS
+Bug reports, patches and suggestions are much appreciated,
+send them to the author.
+.SH AUTHOR
+David Reveman <davidr@meawm_ng.org>
+
+The Meawm_NG website:
+.nh
+.B http://www.meawm_ng.org
+.ny
+.SH "SEE ALSO"
+.BR X (7)

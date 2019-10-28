@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+  <actionlist name="root-button-mappings" extend="true">
+    <action function="remapmenu" parameter="rootmenu"
+            event="buttonpress"
+            button="button3"/>
+    <action function="remapmenu" parameter="desktops"
+            event="buttonpress"
+            button="button2"/>
+    <action function="unmapmenu" parameter="rootmenu"
+            event="buttonpress"
+            button="button1"/>
+    <action function="unmapmenu" parameter="desktops"
+            event="buttonpress"
+            button="button1"/>
+    <action function="unmapmenu" parameter="window"
+            event="buttonpress"
+            button="button1"/>
+    <action function="startviewportmove"
+            event="buttonpress"
+            button="button1">
+      <modifier name="mod1"/>
+      <modifier constraint="must_not_exist" name="moveresize"/>
+    </action>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-button-mappings" extend="true">
+    <action function="windowraise"
+            event="buttonpress"
+            button="button1">
+      <modifier name="mod1"/>
+    </action>
+    <action function="windowlower"
+            event="buttonpress"
+            button="button2">
+      <modifier name="mod1"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="menu-item-button-mappings" extend="true"/>
+
+  <actionlist name="menu-item-hover-button-mappings" extend="true">
+    <action function="menuaction"
+            event="buttonrelease"
+            button="anybutton"/>
+    <action function="menuunmaptree"
+            event="buttonrelease"
+            button="anybutton"/>
+  </actionlist>
+
+  <actionlist name="menu-item-sub-button-mappings" extend="true">
+    <action function="menuremapsubmenu"
+            event="buttonpress"
+            button="button1"/>
+  </actionlist>
+
+  <actionlist name="menu-item-title-button-mappings" extend="true">
+    <action function="menuraise"
+            event="buttonpress"
+            button="button1"/>
+    <action function="menulower"
+            event="buttonpress"
+            button="button2"/>
+    <action function="menuunlink"
+            event="buttonpress"
+            button="button1"/>
+    <action function="menuunmapsubmenus"
+            event="buttonpress"
+            button="button3"/>
+    <action function="menuunmap"
+            event="buttonpress"
+            button="button3"/>
+  </actionlist>
+
+</meawm_ng>

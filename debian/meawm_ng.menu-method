@@ -1,0 +1,56 @@
+#!/usr/sbin/install-menu
+#
+# Generates meawm_ng menus for all registered applications.
+# (taken from fluxbox)
+compat="menu-1"
+
+!include menu.h
+
+genmenu="menu"
+rootprefix="/etc/X11/meawm_ng/"
+userprefix=".meawm_ng/"
+treewalk=M)
+#rootsection="/Debian"
+
+supported
+    x11=    nstring(level(), "   ") "[item] (" esc($title, ")") ") {" esc($command, "()\"") "}\n"
+    wm=	    nstring(level(), "   ") "[restart] ("  esc($title, ")")  ")  {" esc($command, ")") "}\n" 
+    text=   nstring(level(), "   ") "[item] (" esc($title, ")") ") { x-terminal-emulator  -e " esc($command, ")\"") "}\n"
+
+# by harnir: added 'meawm_ng' type for exit and restart entries
+# added meawm_ng-sub for dynamical submenus generated from scripts
+    meawm_ng= nstring(level(), "   ") "[" esc($command, "()") "] (" esc($title, "()") ")\n"
+    meawm_ng-sub= nstring(level(), "   ") "[sub] (" esc($title, ")") ") <!" esc($command, "()\"") ">\n"
+
+endsupported
+
+preoutput= \
+  "# Automatically generated file. Do not edit (see /usr/share/doc/menu/README)\n\n\n\n!Debian MENU\n\n[start](rootmenu)\n[title] (Debian)\n"
+postoutput= \
+   "\n!Debian END\n \
+   !\n \
+   ! Window Menu\n \
+   !\n \
+   [start] (window)\n \
+    [title] (Window Menu)\n \
+    [checkbox=MAXIMIZED]      @FALSE (Maximized)        \"maximize\"       @TRUE (Maximized)          \"unmaximize\"\n \
+    [checkbox=SHADED]         @FALSE (Shaded)           \"shade\"            @TRUE (Shaded)           \"unshade\"\n \
+    [checkbox=STICKY]         @FALSE (Sticky)           \"sticky\"           @TRUE (Sticky)           \"unsticky\"\n \
+    [checkbox=ALWAYSONTOP]    @FALSE (Always On Top)    \"alwaysontopon\"    @TRUE (Always On Top)    \"alwaysontopoff\"\n \
+    [checkbox=ALWAYSATBOTTOM] @FALSE (Always At Bottom) \"alwaysatbottomon\" @TRUE (Always At Bottom) \"alwaysatbottomoff\"\n \
+    [checkbox=DECORTITLE]     @FALSE (Titlebar)         \"decortitleon\"     @TRUE (Titlebar)         \"decortitleoff\"\n \
+    [checkbox=DECORHANDLE]    @FALSE (Handlebar)        \"decorhandleon\"    @TRUE (Handlebar)        \"decorhandleoff\"\n \
+    [checkbox=DECORBORDER]    @FALSE (Border)           \"decorborderon\"    @TRUE (Border)           \"decorborderoff\"\n \
+    [checkbox=DECORALL]       @FALSE (All Decorations)  \"decorallon\"       @TRUE (All Decorations)  \"decoralloff\"\n \
+    [item]  (Raise)       \"raise\"\n \
+    [item]  (Lower)       \"lower\"\n \
+    [item]  (Kill Client) \"kill\"\n \
+    [item]  (Close)       \"close\"\n \
+   [end]"
+
+startmenu= ""
+submenutitle= nstring(level(), "   ") "[submenu] (" esc($title,"()") ") {" esc($longtitle,"()") "}\n"
+
+# by harnir: removed 'restart' and 'exit' entries
+# which are now in WindowManagers menu
+endmenu= nstring(level(), "   ") ifeq(level(), "0", " ") "[end]\n"

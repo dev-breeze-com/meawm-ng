@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE waimea SYSTEM "@pkgdatadir@/waimea.dtd">
+
+<waimea version="@pkgversion@">
+
+  <include ignore_missing="true">~/.waimea/pre-style.conf</include>
+
+  <constant name="font" value="sans"/>
+  <constant name="font-size" value="13px"/>
+  <constant name="font-color-active" value="#ffffff"/>
+  <constant name="font-color-passive" value="#9a9a9a"/>
+
+  <constant name="fg-color-active" value="#000000"/>
+  <constant name="fg-color-passive" value="#9a9a9a"/>
+
+  <constant name="linewidth" value="2px"/>
+
+  <constant name="pattern-filter" value="bilinear"/>
+  <constant name="window-color1" value="#3982ce"/>
+  <constant name="window-color2" value="#9ccfff"/>
+  <constant name="window-color-passive" value="#f6f6f6"/>
+
+  <include>window.conf</include>
+  <include>menu.conf</include>
+  <include>root.conf</include>
+  <include>dockapp.conf</include>
+
+  <include ignore_missing="true">~/.waimea/post-style.conf</include>
+
+</waimea>

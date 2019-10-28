@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+  <include ignore_missing="true">~/.meawm_ng/pre-menu.conf</include>
+
+  <menu name="styles"/>
+  <menu name="actions"/>
+
+  <include>|stylecfgmenu.pl</include>
+  <include>|actioncfgmenu.pl</include>
+
+  <menu name="window-info-menu" width_factor="1.5">
+    <item name="title" string="Window Info" image="icons/info.png"/>
+    <item name="info" string="Title: %t"/>
+    <item name="info" string="Class: %c"/>
+    <item name="info" string="Class Name: %C"/>
+    <item name="info" string="Window ID: %r"/>
+    <item name="info" string="PID: %P"/>
+    <item name="info" string="Host: %s"/>
+    <item name="separator"/>
+    <item name="info" string="Transient: %S" 
+          monitor_window_state="windowstatetransient"/>
+    <item name="info" string="Group Leader: %S"
+          monitor_window_state="windowstategroupleader"/>
+    <item name="info" string="Group Member: %S"
+          monitor_window_state="windowstategroupmember"/>
+    <item name="info" string="Urgent: %S"
+          monitor_window_state="windowstateurgent"/>
+    <item name="info" string="Focusable: %S"
+          monitor_window_state="windowstatefocusable"/>
+    <item name="info" string="In Tasklist: %S"
+          monitor_window_state="windowstatetasklist"/>
+  </menu>
+
+  <menu name="meawm_ng-info-menu" width_factor="2.0">
+    <item name="title" string="Meawm_NG Info"
+          image="icons/info.png"/>
+    <item name="info" string="Package: %p"/>
+    <item name="info" string="Version: %v"/>
+    <item name="info" string="Built: %D %T"/>
+    <item name="info" string="Features: %F"/>
+    <item name="info" string="Extensions Used: %E"/>
+    <item name="info" string="User: %u"/>
+  </menu>
+
+  <menu name="rootmenu">
+    <item name="title" string="root menu" image="icons/rootmenu.png"/>
+    <item name="item" function="exec" parameter="xterm" string="Terminal" 
+          image="icons/xterm.png"/>
+    <item name="separator"/>
+    <item name="sub" string="Editors" image="icons/editors.png">
+      <menu>
+        <item name="title" string="Editors" image="icons/editors.png"/>
+        <item name="item" function="exec" parameter="emacs" string="Emacs"
+              image="icons/emacs.png"/>
+        <item name="item" function="exec" parameter="gvim" string="GVim"
+              image="icons/gvim.png"/>
+      </menu>
+    </item>
+    <item name="sub" string="Graphics" image="icons/graphics.png">
+      <menu>
+        <item name="title" string="Graphics" image="icons/graphics.png"/>
+        <item name="item" function="exec" parameter="gimp" string="The GIMP"
+              image="icons/gimp.png"/>
+       </menu>
+    </item>
+    <item name="sub" string="Multimedia" image="icons/multimedia.png">
+      <menu name="mm">
+        <item name="title" string="Multimedia" image="icons/multimedia.png"/>
+        <item name="item" function="exec" parameter="xmms" string="XMMS"
+              image="icons/xmms.png"/>
+      </menu>
+    </item>
+    <item name="sub" string="Networking" image="icons/network.png">
+      <menu>
+        <item name="title" string="Networking" image="icons/network.png"/>
+        <item name="item" function="exec" parameter="evolution" 
+              string="Evolution" image="icons/evolution.png"/>
+        <item name="item" function="exec" parameter="galeon" string="Galeon"
+              image="icons/galeon.png"/>
+        <item name="item" function="exec" parameter="mozilla" string="Mozilla"
+              image="icons/mozilla.png"/>
+      </menu>
+    </item>
+    <item name="separator"/>
+    <item name="sub" submenu="styles" string="Styles"
+          image="icons/styles.png"/>
+    <item name="sub" submenu="actions" string="Actions"
+          image="icons/actions.png"/>
+    <item name="sub" submenu="meawm_ng-info-menu" string="Meawm_NG Info"
+          image="icons/info.png"/>
+    <item name="separator"/>
+    <item name="item" function="exec" parameter="xlock" string="Lock"
+          image="icons/lock.png"/>
+    <item name="separator"/>
+    <item name="item" function="restart" string="Restart"
+          image="icons/restart.png"/>
+    <item name="item" function="exit" string="Log Out" image="icons/exit.png"/>
+  </menu>
+
+  <menu name="desktops" width_factor="1.2">
+    <item name="title" string="Go To Desktop..." image="icons/desktops.png"/>
+    <item name="item" function="gotodesktop" parameter="0" string="Desktop 1"/>
+    <item name="item" function="gotodesktop" parameter="1" string="Desktop 2"/>
+    <item name="item" function="gotodesktop" parameter="2" string="Desktop 3"/>
+    <item name="item" function="gotodesktop" parameter="3" string="Desktop 4"/>
+  </menu>
+
+  <menu name="window" width_factor="1.3">
+    <item name="title" string="%t" image="icons/window.png"/>
+    <item name="sub" image="icons/settings.png" string="settings">
+      <menu width_factor="1.3">
+        <item name="title" string="Settings" image="icons/settings.png"/>
+        <item name="checkbox" function="windowtogglemaximize"
+              string="Maximized" monitor_window_state="windowstatemaximized"/>
+        <item name="checkbox" function="windowtoggleshade" string="Shaded" 
+              monitor_window_state="windowstateshaded"/>
+        <item name="checkbox" function="windowtogglesticky" string="Sticky" 
+              monitor_window_state="windowstatesticky"/>
+        <item name="checkbox" function="windowalwaysontoptoggle" 
+              string="Always On Top" 
+              monitor_window_state="windowstatealwaysontop"/>
+        <item name="checkbox" function="windowalwaysatbottomtoggle" 
+              string="Always At Bottom" 
+              monitor_window_state="windowstatealwaysatbottom"/>
+        <item name="checkbox" function="windowdecortitletoggle"
+              string="Titlebar" monitor_window_state="windowstatedecortitle"/>
+        <item name="checkbox" function="windowdecorbordertoggle"
+              string="Border" monitor_window_state="windowstatedecorborder"/>
+      </menu>
+    </item>
+    <item name="sub" image="icons/desktops.png" string="Desktop Functions">
+      <menu width_factor="1.3">
+        <item name="title" string="Desktop Functions" 
+              image="icons/desktops.png"/>
+        <item name="sub" string="Join Desktop">
+          <menu>
+            <item name="item" function="windowjoindesktop" parameter="0"
+                  string="Desktop 1"/>
+            <item name="item" function="windowjoindesktop" parameter="1"
+                  string="Desktop 2"/>
+            <item name="item" function="windowjoindesktop" parameter="2"
+                  string="Desktop 3"/>
+            <item name="item" function="windowjoindesktop" parameter="3"
+                  string="Desktop 4"/>
+          </menu>
+        </item>
+        <item name="sub" string="Part Desktop">
+	       <menu>
+            <item name="item" function="windowpartdesktop" parameter="0"
+                  string="Desktop 1"/>
+            <item name="item" function="windowpartdesktop" parameter="1"
+                  string="Desktop 2"/>
+            <item name="item" function="windowpartdesktop" parameter="2"
+                  string="Desktop 3"/>
+            <item name="item" function="windowpartdesktop" parameter="3"
+                  string="Desktop 4"/>
+          </menu>
+        </item>
+        <item name="sub" string="Send To Desktop">
+          <menu>
+            <item name="item" function="windowpartcurrentjoindesktop"
+                  parameter="0" string="Desktop 1"/>
+            <item name="item" function="windowpartcurrentjoindesktop"
+                  parameter="1" string="Desktop 2"/>
+            <item name="item" function="windowpartcurrentjoindesktop"
+                  parameter="2" string="Desktop 3"/>
+            <item name="item" function="windowpartcurrentjoindesktop"
+                  parameter="3" string="Desktop 4"/>
+          </menu>
+        </item>
+        <item name="item" function="windowjoinalldesktops" string="Join All"/>
+        <item name="item" function="windowpartalldesktopsexceptcurrent"
+              string="Part All"/>
+        <item name="item" function="windowpartcurrentdesktop"
+              string="Part Current"/>
+      </menu>
+    </item>
+    <item name="sub" submenu="window-info-menu" string="Window Info"
+          image="icons/info.png"/>
+    <item name="item" function="windowraise" string="Raise"/>
+    <item name="item" function="windowlower" string="Lower"/>
+    <item name="item" function="windowkill" string="Kill Client"/>
+    <item name="item" function="windowclose" string="Close"/>
+  </menu>
+
+  <menu name="windowlist" width_factor="3.0">
+    <item name="title" string="Window List" image="icons/window-list.png"/>
+  </menu>
+
+  <menu name="clonemergelist" width_factor="3.0">
+    <item name="title" string="Clone Merge With..." 
+          image="icons/window-list.png"/>
+  </menu>
+
+  <menu name="vertmergelist" width_factor="3.0">
+    <item name="title" string="Vertically Merge With..."
+          image="icons/window-list.png"/>
+  </menu>
+
+  <menu name="horizmergelist" width_factor="3.0">
+    <item name="title" string="Horizontally Merge With..."
+          image="icons/window-list.png"/>
+  </menu>
+
+  <include ignore_missing="true">~/.meawm_ng/post-menu.conf</include>
+
+</meawm_ng>

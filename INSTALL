@@ -1,0 +1,17 @@
+Meawm_NG uses automake, in order to generate the Makefiles for meawm_ng use:
+
+	$ autogen.sh
+
+After that, standard build procedures apply:
+
+	$ make
+	$ make install
+
+For user specific configuration, copy and edit the following files:
+
+	$ cp data/meawm_ngrc ~/.meawm_ngrc
+	$ mkdir ~/.meawm_ng
+	$ cp data/pre-action.conf ~/.meawm_ng
+	$ cp data/pre-style.conf ~/.meawm_ng
+	$ cp data/post-action.conf ~/.meawm_ng
+	$ cp data/post-style.conf ~/.meawm_ng

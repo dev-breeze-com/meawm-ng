@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# /etc/gdm/Sessions/meawm_ng
+#
+# global meawm_ng session file -- used by gdm
+
+exec /etc/X11/Xsession /usr/bin/meawm_ng
+

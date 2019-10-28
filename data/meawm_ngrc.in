@@ -1,0 +1,28 @@
+!
+! Meawm_NG system wide configuration. If no ~/.meawm_ngrc is found and no
+! --rcfile switch is used, meawm_ng reads configuration options from
+! this file.
+!
+screenMask:              All
+scriptDir:               @pkgdatadir@/scripts
+doubleClickInterval:     300
+clientSideRendering:     False
+argbVisual:              False
+multiThreading:          False
+renderingThreadPriority: 0
+
+! Screen 0 configuration
+screen0.actionFile: @pkgdatadir@/actions/sloppyfocusopaque/action.conf
+screen0.menuFile:   @pkgdatadir@/menus/menu.conf
+screen0.styleFile:  @pkgdatadir@/styles/freedesktop/style.conf
+
+screen0.numberOfDesktops:             4
+screen0.desktopNames:                 Desktop 1,Desktop 2,Desktop 3,Desktop 4
+screen0.virtualSize:                  3x3
+screen0.defaultMenuStacking:          AlwaysOnTop
+screen0.defaultDockappHolderStacking: AlwaysOnTop
+screen0.transientNotAbove:            False
+screen0.focusRevertToRoot:            False
+screen0.externalBackground:           False
+screen0.infoCommand:                  echo "%d(%F %T) %f: %m" >> ~/.meawm_ng/info.log;@dialogcommand@
+screen0.warningCommand:               echo "%d(%F %T) %f: %m" >> ~/.meawm_ng/warning.log

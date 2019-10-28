@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+  <actionlist name="screenedge-north" extend="true">
+    <action function="viewportup"
+            event="enternotify">
+      <modifier constraint="must_not_exist" name="mod3"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="screenedge-south" extend="true">
+    <action function="viewportdown"
+            event="enternotify">
+      <modifier constraint="must_not_exist" name="mod3"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="screenedge-west" extend="true">
+    <action function="viewportleft"
+            event="enternotify">
+      <modifier constraint="must_not_exist" name="mod3"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="screenedge-east" extend="true">
+    <action function="viewportright"
+            event="enternotify">
+      <modifier constraint="must_not_exist" name="mod3"/>
+    </action>
+  </actionlist>
+
+  <match target="screenedge" name="^north$" actionlist="screenedge-north"/>
+  <match target="screenedge" name="^south$" actionlist="screenedge-south"/>
+  <match target="screenedge" name="^west$" actionlist="screenedge-west"/>
+  <match target="screenedge" name="^east$" actionlist="screenedge-east"/>
+
+  <actionlist name="window-client-map" extend="true">
+    <action function="windowmoveresize" parameter="+50+50"
+            event="maprequest">
+      <modifier constraint="must_not_exist" name="windowstatepositioned"/>
+    </action>
+    <action function="windowmovetosmartplace"
+            event="maprequest">
+      <modifier constraint="must_not_exist" name="windowstatepositioned"/>
+    </action>
+  </actionlist>
+
+</meawm_ng>

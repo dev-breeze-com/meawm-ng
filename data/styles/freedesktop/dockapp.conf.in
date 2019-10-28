@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE waimea SYSTEM "@pkgdatadir@/waimea.dtd">
+
+<waimea version="@pkgversion@">
+
+  <style name="dockappholder" x="2px" y="2px" valign="bottom" halign="right"
+         gravity="southeast"
+         alpha_level_shape="true" translucent="true"
+         left_spacing="4px" right_spacing="4px"
+         top_spacing="4px" bottom_spacing="4px">
+    <rectangle x="1px" y="1px" x2="1px" y2="1px" gravity2="southeast"
+               rx="7px" ry="7px" stroke_color="fg-color-passive"
+               linewidth="2px" 
+               fill_color="window-color-passive"/>
+  </style>
+
+  <match target="dockappholder" style="dockappholder"/>
+
+</waimea>

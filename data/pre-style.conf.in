@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+<!-- This is a good place to overload style constants. e.g:
+
+  <constant name="bg-color" value="#57a26c"/>
+  <constant name="background-image" value="~/.images/nice-bg.png"/>
+
+-->
+
+</meawm_ng>

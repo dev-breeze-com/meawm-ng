@@ -1,0 +1,24 @@
+#!/bin/sh
+set -e
+
+Meawm_NG_entry="/usr/bin/meawm_ng"
+
+case "$1" in
+    purge)
+        rm -rf /etc/X11/meawm_ng
+	;;
+    remove)
+        if [ -x /usr/sbin/wm-menu-config ]; then
+	    wm-menu-config meawm_ng off
+        fi
+
+        if [ -x /usr/sbin/register-window-manager ] ; then
+	    register-window-manager --remove $Meawm_NG_entry
+        fi
+
+        ;;
+    *)
+        ;;
+esac
+
+#DEBHELPER#

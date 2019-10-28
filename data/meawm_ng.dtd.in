@@ -1,0 +1,1132 @@
+<!--
+    This is the Document Type Definition for meawm_ng configuration files.
+
+    version: @pkgversion@
+    author:  David Reveman ( david@meawm_ng.org )
+-->
+
+<!-- Integer number. -->
+<!ENTITY % Integer "CDATA" >
+
+<!-- Unsigned integer number. -->
+<!ENTITY % UnsignedInteger "CDATA" >
+
+<!-- Floating point number. -->
+<!ENTITY % Float "CDATA" >
+
+<!-- Boolean value. -->
+<!ENTITY % Boolean "( false | true )" >
+
+<!--
+    Character data. The following character sequences are expanded:
+
+    %v : Package version.
+    %p : Package name.
+    %D : Build date.
+    %T : Build time.
+    %E : Detected and used X server extensions.
+    %F : Features compiled in.    
+    %e(envvar) : Value of environment variable envvar.
+    %u : User name.
+    %r : Window resource ID in hexadecimal format.
+    %t : Window title.
+    %c : Window class.
+    %C : Window class-name.
+    %P : Window client process ID.
+    %s : Window client host.
+    %w : Window width (inc size units).
+    %W : Window width (pixel units).
+    %h : Window height (inc size units).
+    %H : Window height (pixel units).
+    %x : Window X position.
+    %y : Window Y position.
+    %X : Virtual window X position.
+    %Y : Virtual window Y position.
+    %d : Current time. Format 'HH:MM'.
+    %d(format) : Current date. 'format' should be a strftime format string.
+    %f : Info/warning function name (can be used in info/warning command).
+    %m : Info/warning message (can be used in info/warning command).
+    %m : Primary menu item string.
+    %M : Secondary menu item string.
+    %S : Monitor value string 'true' or 'false'.
+    %n : Newline.
+    %% : %.
+-->
+<!ENTITY % ExpandedString "CDATA" >
+
+<!-- Meawm_NG version number. -->
+<!ENTITY % Version "CDATA" >
+
+<!-- 
+    If the filename contains '~', it is replaced with the users home
+    directory path and if the filename contains $env, it is replaced with
+    value of environment variable 'env'.
+-->
+<!ENTITY % FileName "CDATA" >
+
+<!-- String identifying a object. -->
+<!ENTITY % ObjectName "CDATA" >
+
+<!-- String identifying a style object. -->
+<!ENTITY % StyleName "%ObjectName;" >
+
+<!-- String identifying a group object. -->
+<!ENTITY % GroupName "%ObjectName;" >
+
+<!-- String identifying a pattern object. -->
+<!ENTITY % PatternName "%ObjectName;" >
+
+<!-- String identifying a path object. -->
+<!ENTITY % PathName "%ObjectName;" >
+
+<!-- String identifying an actionlist object. -->
+<!ENTITY % ActionListName "%ObjectName;" >
+
+<!-- String identifying a menu object. -->
+<!ENTITY % MenuName "%ObjectName;" >
+
+<!-- String identifying menu item object type. -->
+<!ENTITY % MenuItemName "%ObjectName;" >
+
+<!-- Window states. -->
+<!ENTITY % State "( passive | active | hover | pressed )" >
+
+<!-- Position value, floating point number with optional type
+     specifier. Valid types are '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc'.
+     If type specifier is missing, 'px' (in pixels) type is assumed. -->
+<!ENTITY % PositionValue "CDATA" >
+
+<!-- Size value, floating point number with optional type
+     specifier. Valid types are '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc'.
+     If type specifier is missing, 'px' (in pixels) type is assumed. -->
+<!ENTITY % SizeValue "CDATA" >
+
+<!-- Orientation, vertical or horizontal. -->
+<!ENTITY % Orientation "( vertical | horizontal )" >
+
+<!-- Vertical alignment type. -->
+<!ENTITY % VerticalAlignment "( top | bottom | center )" >
+
+<!-- Horizontal alignment type. -->
+<!ENTITY % HorizontalAlignment "( right | left | center )" >
+
+<!-- Gravity. -->
+<!ENTITY % Gravity 
+ "( northwest | northeast | southwest | southeast | north | south | west |
+    east )" >
+
+<!-- X Render compositing operator -->
+<!ENTITY % Operator 
+ "( clear | src | dst | over | overreverse | in | inreverse | out |
+    outreverse | atop | atopreverse | xor | add | saturate )" >
+
+<!-- Degrees 0-360. -->
+<!ENTITY % Angle "%Float;" >
+
+<!-- XColor string parsed with XParseColor. see XQueryColor(3) manual page. -->
+<!ENTITY % Color "CDATA" >
+
+<!-- Float value 0.0-1.0. -->
+<!ENTITY % Clamp "%Float;" >
+
+<!-- Opacity value, 1.0 being solid and 0.0 being fully translucent. -->
+<!ENTITY % Opacity "%Clamp;" >
+
+<!-- Filter types. -->
+<!ENTITY % Filter "( nearest | bilinear | gaussian )" >
+
+<!-- Spread types. -->
+<!ENTITY % Spread "( none | repeat | reflect )" >
+
+<!-- Line width. -->
+<!ENTITY % LineWidth "%SizeValue;" >
+
+<!-- Line cap style. -->
+<!ENTITY % LineCap "( butt | round | square )" >
+
+<!-- Line join style. -->
+<!ENTITY % LineJoin "( miter | round | bevel )" >
+
+<!-- Miter limit. -->
+<!ENTITY % MiterLimit "%Float;" >
+
+<!-- Curve tolerance. -->
+<!ENTITY % Tolerance "%Float;" >
+
+<!-- Dash array. Comma separeted list of SizeValue's. e.g. '5px,1cm,5mm' -->
+<!ENTITY % DashArray "CDATA" >
+
+<!-- Fill rule. -->
+<!ENTITY % FillRule "( winding | evenodd )" >
+
+<!-- Drawing Order. -->
+<!ENTITY % DrawingOrder "( fillstroke | strokefill )" >
+
+<!-- Pattern Type. -->
+<!ENTITY % PatternType "( linear | radial | group )" >
+
+<!-- Cursor string as defined in 'X11/cursorfont.h' without the 'XC_' prefix,
+     or a xcursor filename if meawm_ng is compiled with xcursor support. -->
+<!ENTITY % Cursor "CDATA" >
+
+<!-- Sub-window name -->
+<!ENTITY % WindowName "CDATA" >
+
+<!-- Font name -->
+<!ENTITY % Font "CDATA" >
+
+<!-- Font weight -->
+<!ENTITY % Weight "( normal | bold )" >
+
+<!-- Font slant -->
+<!ENTITY % Slant "( normal | italic | oblique )" >
+
+<!-- GNU regular expression -->
+<!ENTITY % RegularExpression "CDATA" >
+
+<!-- Dynamic object types -->
+<!ENTITY % DynamicObjectType 
+"( menuitemiconimage | menuitemiconsvg | wmiconimage | wmiconsvg )" >
+
+<!-- Image file in one of the supported image formats -->
+<!ENTITY % ImageFile "CDATA" >
+
+<!-- SVG file  -->
+<!ENTITY % SvgFile "CDATA" >
+
+<!--
+    Action function reference. Some of them requires a parameter. e.g.
+    'setstyle' must have a valid style name as parameter.
+
+    (more documentation to come...)
+
+-->
+<!ENTITY % ActionFunction
+ "( nop | showinfo | showwarning | exec | do | stoptimer | exit | restart | 
+    setactionfile | setstylefile | setmenufile | reloadwithactionfile |
+    reloadwithstylefile | reloadwithmenufile | reload |  taskswitcher | 
+    nexttask | previoustask | gotodesktop | nextdesktop | 
+    previousdesktop | pointerrelativewarp | pointerfixedwarp | viewportleft | 
+    viewportright | viewportup | viewportdown | viewportrelativemove | 
+    viewportfixedmove | startviewportmove | movefocustoclosestnorthwindow |
+    movefocustoclosestsouthwindow | movefocustoclosestwestwindow | 
+    movefocustoclosesteastwindow | setpassiveactionlist | 
+    setactiveactionlist | sethoveractionlist | setpressedactionlist | 
+    defaultpassiveactionlist | defaultactiveactionlist | 
+    defaulthoveractionlist | defaultpressedactionlist | setpassivestyle |
+    setactivestyle | sethoverstyle | setpressedstyle | defaultpassivestyle | 
+    defaultactivestyle | defaulthoverstyle | defaultpressedstyle | setcursor |
+    defaultcursor | mapmenu | remapmenu | mapmenufocused | remapmenufocused |
+    unmapmenu | readadditionalconfig | focusroot | endmoveresize |
+    windowraise | windowlower | windowfocus | windowraisefocus |
+    windowstartmove | windowstartresizedownright | windowstartresizeupright |
+    windowstartresizeright | windowstartresizedownleft |
+    windowstartresizeupleft | windowstartresizeleft |
+    windowstartresizedown | windowstartresizeup | windowstartresizesmart |
+    windowstartopaquemove | windowstartopaqueresizedownright |
+    windowstartopaqueresizeupright | windowstartopaqueresizeright |
+    windowstartopaqueresizedownleft | windowstartopaqueresizeupleft |
+    windowstartopaqueresizeleft | windowstartopaqueresizedown | 
+    windowstartopaqueresizeup | windowstartopaqueresizesmart |
+    windowmoveresize | windowmoveresizevirtual | 
+    windowmovetopointer | windowmovetosmartplace |windowdesktopmask |
+    windowjoindesktop | windowpartdesktop | windowpartcurrentdesktop | 
+    windowjoinalldesktops | windowpartalldesktopsexceptcurrent |
+    windowpartcurrentjoindesktop | windowclonemergewithwindow |
+    windowvertmergewithwindow | windowhorizmergewithwindow | windowexplode |
+    windowmergedtofront | windowunmerge | windowsetmergemode |
+    windownextmergemode | windowprevmergemode | windowclose | windowkill |
+    windowclosekill | windowshade | windowunshade | windowtoggleshade |
+    windowmaximize | windowunmaximize | windowtogglemaximize |
+    windowminimize | windowunminimize | windowsticky | windowunsticky |
+    windowtogglesticky | windowfullscreenon | windowfullscreenoff |
+    windowfullscreentoggle | windowtoggleminimize | windowdecortitleon |
+    windowdecortitleoff | windowdecortitletoggle | windowdecorborderon |
+    windowdecorborderoff | windowdecorbordertoggle | windowdecorhandleson |
+    windowdecorhandlesoff | windowdecorhandlestoggle | windowdecorallon |
+    windowdecoralloff | windowalwaysontopon | windowalwaysontopoff |
+    windowalwaysontoptoggle | windowalwaysatbottomon | 
+    windowalwaysatbottomoff | windowalwaysatbottomtoggle | windowshowinfo | 
+    windowhideinfo | menuunlink | menumapsubmenu | menuunlink |
+    menumapsubmenu | menuremapsubmenu | menuunmap | menuunmapsubmenus | 
+    menuunmapothersubmenus | menuunmaptree | menuaction | menunextitem |
+    menupreviousitem | menuraise | menulower | menustartmove |
+    menustartopaquemove | menusetstacking | dockappholdersetinworkspace |
+    dockappholdersetnotinworkspace | dockappholderraise | dockappholderlower |
+    dockappholdersetstacking | dockappaddtoholder | dockappsetpriority )" >
+
+<!--
+    Action function parameter. A string parameter to an action function.
+    Valid values for this depends on the action function. e.g. for
+    action function 'mapmenu' valid parameter is the name of an existing
+    menu.
+
+    (more documentation to come...)
+
+-->
+<!ENTITY % ActionFunctionParameter "CDATA" >
+
+<!--
+    Event which could trigger an action function.
+
+    (more documentation to come...)
+
+-->
+<!ENTITY % EventType
+ "( keypress | keyrelease | buttonpress | buttonrelease | enternotify | 
+    leavenotify | maprequest | focusin | focusout | doubleclick |
+    windowstatechangenotify | viewportchangenotify | desktopchangenotify |
+    restartnotify | exitnotify | createwindownotify | destroywindownotify |
+    raisenotify | lowernotify | activewindowchangenotify | menumapnotify |
+    menuunmapnotify | stateaddnotify | stateremovenotify | 
+    dockappaddrequest )" >
+
+<!-- Client window states -->
+<!ENTITY % WindowState
+ "windowstatemove | windowstateresize | windowstatesticky | 
+  windowstateshaded | windowstatemaximized | windowstateminimized | 
+  windowstatefullscreen | windowstatedecortitle | windowstatedecorborder | 
+  windowstatedecorhandles | windowstatedecorall | windowstatealwaysontop | 
+  windowstatealwaysatbottom | windowstatetransient | windowstategroupleader |
+  windowstategroupmember | windowstateurgent | windowstatefocusable |
+  windowstatetasklist | windowstateewmhdesktop | windowstateewmhdock |
+  windowstateewmhtoolbar | windowstateewmhmenu | windowstateewmhsplash |
+  windowstateewmhdialog | windowstateusertime | windowstatepositioned" >
+
+<!--
+    Modifier restriction for action.
+
+    (more documentation to come...)
+
+-->
+<!ENTITY % Modifier 
+ "( shift | lock | control | mod1 | mod2 | mod3 | mod4 | mod5 | button1 |
+    button2 | button3 | button4 | button5 | moveresize | statetrue | 
+    %WindowState; )">
+
+<!--
+    Event detail. Valid value depands on the associated event type.
+
+    (more documentation to come...)
+
+-->
+<!ENTITY % EventDetail "CDATA" >
+
+<!--
+    Key symbol string or hexadecimal keycode value. Value is considered a
+    keycode if it starts with '0x'. e.g. '0x24' or 'Return'.
+-->
+<!ENTITY % Key "%EventDetail;" >
+
+<!-- Button description. Format is 'NUMBER|buttonNUMBER|anybutton'. -->
+<!ENTITY % Button "%EventDetail;" >
+
+<!-- Priority value -->
+<!ENTITY % Priority "%Integer;" >
+
+<!--
+    Attributes for attribute inheritance.
+
+    @inherit Object for which attributes should be inherited from.
+    @ignore_missing Set to 'true' if errors are to be ignored.
+-->
+<!ENTITY % InheritanceAttributes
+ "inherit %ObjectName; #IMPLIED
+  ignore_missing %Boolean; #IMPLIED" >
+
+<!--
+    Attributes describing a position.
+
+    @x X position.
+    @y Y position.
+    @gravity Gravity of 'x', 'y' position.
+-->
+<!ENTITY % PositionAttributes
+ "x %PositionValue; #IMPLIED
+  y %PositionValue; #IMPLIED
+  gravity %Gravity; 'northwest'" >
+
+<!--
+    Attributes describing a size.
+
+    @width Width value.
+    @height Height value.
+-->
+<!ENTITY % SizeAttributes
+ "width %SizeValue; #IMPLIED
+  height %SizeValue; #IMPLIED" >
+
+<!--
+    Attributes describing an area.
+
+    @x2 An alternative to specifing 'width', 'width' is calculated as
+    difference between 'x2' and 'x' if 'x2' is set.
+    @y2 An alternative to specifing 'height', 'height' is calculated as
+    difference between 'y2' and 'y' if 'y2' is set.
+    @gravity2 Gravity of 'x2', 'y2' point.
+    @halign Horizontal alignment of area.
+    @valign Vertical alignment of area.
+-->
+<!ENTITY % AreaAttributes
+ "%PositionAttributes;
+  %SizeAttributes;
+  x2 %PositionValue; #IMPLIED
+  y2 %PositionValue; #IMPLIED
+  gravity2 %Gravity; 'northwest'
+  halign %HorizontalAlignment; 'left'
+  valign %VerticalAlignment; 'top'" >
+
+<!--
+    Attributes describing render operation.
+
+    @operator Compositing operator.
+    @rotation Rotation.
+-->
+<!ENTITY % RenderAttributes
+ "operator %Operator; 'over'
+  rotation %Angle; #IMPLIED" >
+
+<!--
+    Attributes describing a group.
+
+    @extend Set to 'true' if group should be extended instead of overwritten
+    when it already exist.
+    @opacity Opacity mask for group.
+    @cache Set to 'false' to disable caching of group.
+-->
+<!ENTITY % GroupAttributes
+ "%RenderAttributes;
+  %AreaAttributes;
+  %InheritanceAttributes;
+  extend %Boolean; 'false'
+  opacity %Opacity; #IMPLIED
+  cache %Boolean; 'true'" >
+
+<!--
+    Attributes describing a drawing operation.
+
+    @linecap Line cap style used for stroking.
+    @linejoin Line join style used for stroking.
+    @miterlimit Miterlimit used for stroking.
+    @tolerance Tolerance used for curve rendering.
+    @fillrule Fill rule used for filling.
+    @stroke_color Color used for stroking.
+    @stroke_pattern Pattern used for stroking, overrides stroke color.
+    @stroke_opacity Opacity used for stroking.
+    @stroke_dasharray Dash array used for dashed line stroking.
+    @stroke_dashoffset Dash offset used for dashed line stroking.
+    @fill_color Color used for filling.
+    @fill_pattern Pattern used for filling, overrides fill color.    
+    @fill_opacity Opacity used for filling.
+    @drawing_order Rendering order.
+-->
+<!ENTITY % DrawAttributes
+ "%RenderAttributes;
+  linewidth %LineWidth; #IMPLIED
+  linecap %LineCap; 'butt'
+  linejoin %LineJoin; 'miter'
+  miterlimit %MiterLimit; #IMPLIED
+  tolerance %Tolerance; #IMPLIED
+  fillrule %FillRule; 'winding'
+  stroke_color %Color; #IMPLIED
+  stroke_opacity %Opacity; #IMPLIED
+  stroke_pattern %PatternName; #IMPLIED
+  stroke_dasharray %DashArray; #IMPLIED
+  stroke_dashoffset %SizeValue; #IMPLIED
+  fill_color %Color; #IMPLIED
+  fill_opacity %Opacity; #IMPLIED
+  fill_pattern %PatternName; #IMPLIED
+  drawing_order %DrawingOrder; 'fillstroke'" >
+
+<!--
+    Meawm_NG configuration.
+
+    Contains style, actionlist and menu configuration.
+
+    @version Version of meawm_ng which configuration is design for.
+-->
+<!ELEMENT meawm_ng ( constant | include | style | group | pattern | path |
+                   text | menu | actionlist | match )* >
+<!ATTLIST meawm_ng version %Version; #FIXED '@pkgversion@' >
+
+<!-- 
+    Constant
+
+    After defining a constant all attribute values that match the constant
+    name will be replaced with constant value. Constants are read-only so
+    once a constant has been defined it can not be overwritten.
+
+    @name Constant name.
+    @value Constant value.
+    @scope 'local' declares that the constant should only be defined for
+    the current configuration file. 'extern' constants are defined for the 
+    current and all the following configuration files parsed for the current
+    screen.
+-->
+<!ELEMENT constant EMPTY >
+<!ATTLIST constant
+ name CDATA #REQUIRED
+ value CDATA #REQUIRED
+ scope ( extern | local ) 'extern' >
+
+<!--
+    Include another configuration file, or output from shell command.
+
+    If the character data contains '~', it is replaced with the users home
+    directory path and if character data contains $env, it is replaced with
+    value of environment variable 'env'. If first character is a `|' (pipe),
+    output from the execution of the command line following the
+    pipe character in the '/bin/sh' shell will be included instead of 
+    file content.
+
+    @ignore_missing Set to 'true' if errors are to be ignored.
+-->
+<!ELEMENT include ( #PCDATA ) >
+<!ATTLIST include ignore_missing %Boolean; 'false'>
+
+<!--
+    Inherit content of another object.
+
+    All content of the of referenced object will be inherited.
+
+    @ignore_missing Set to 'true' if errors are to be ignored.
+-->
+<!ELEMENT inherit ( #PCDATA ) >
+<!ATTLIST inherit ignore_missing %Boolean; 'false'>
+
+<!--
+    Style description.
+
+    Hierarchy of groups and drawing operations that will decorate windows
+    associated with this style.
+
+    @name Unique style identifier.
+    @alpha_level_shape Set to 'true' if decorated windows associated with style
+    should be shaped (all parts of the window which are decorated by a color
+    with alpha value less than 50% will be removed from the window shape). If
+    style contains a shapemask then shapemask will be used as window shape
+    instead of alpha level.
+    @translucent Set to 'true' if windows associated with style should be
+    translucent against the root window.
+    @cursor Default cursor for window associated with style.
+    @focusable Set to 'false' if window associated with style shouldn't be
+    allowed to get input focus. Only effects root window and menu item windows,
+    other windows are never allowed to get input focus except for client
+    windows which are always allowed to get input focus.
+    @left_spacing Spacing between left window edge and sub-windows.
+    @right_spacing Spacing between right window edge and sub-windows.
+    @top_spacing Spacing between top window edge and sub-windows.
+    @bottom_spacing Spacing between bottom window edge and sub-windows.
+    @grid_spacing Only used by dockappholder windows, this is the spacing
+    between the dockapps in the dockappholder.
+    @orientation Only used by dockappholder windows, sets orientation
+    of dockappholder.
+-->
+<!ELEMENT style ( inherit* | window* | group* | dynamic* | path* | line* | 
+                  rectangle* | ellipse* | solid* | gradient* | interlace* | 
+                  image* | text* | svg* | shapemask? ) >
+<!ATTLIST style
+ %GroupAttributes;
+ name %StyleName; #REQUIRED
+ translucent %Boolean; 'false'
+ alpha_level_shape %Boolean; 'false'
+ cursor %Cursor; #IMPLIED
+ focusable %Boolean; 'true'
+ left_spacing %SizeValue; #IMPLIED
+ right_spacing %SizeValue; #IMPLIED
+ top_spacing %SizeValue; #IMPLIED
+ bottom_spacing %SizeValue; #IMPLIED
+ grid_spacing %SizeValue; #IMPLIED
+ orientation %Orientation; #IMPLIED >
+
+<!--
+    Sub-window name.
+
+    Name of sub-window that should be created for windows associated with
+    style.
+
+    @raised Set to 'true' if sub-window should be raised above other
+    sub-windows.
+-->
+<!ELEMENT window ( #PCDATA ) >
+<!ATTLIST window raised %Boolean; 'false' >
+
+<!--
+    Transparency group.
+
+    Sub-hierarchy of groups and drawing operations.
+    Each group is cached separately so efficient use of groups will speed up
+    rendering.
+
+    @name Set to a unique name to allow other groups to inherit this group.
+-->
+<!ELEMENT group ( inherit | group | dynamic | path | line | rectangle | 
+                  ellipse | solid | gradient | interlace | image | text |
+                  svg )* >
+<!ATTLIST group
+ name %GroupName; #IMPLIED
+ %GroupAttributes; >
+
+<!--
+    Dynamic render operation.
+
+    A list of dynamic/static rendering objects, first object avaiable
+    will inherit attributes from dynamic element and be rendered.
+-->
+<!ELEMENT dynamic ( try )* >
+<!ATTLIST dynamic %GroupAttributes; >
+
+<!--
+    Try specifier.
+
+    Specifies that a given dynamic object type should be rendered if
+    avaiable.
+
+    @type Type of dynamic object.
+    @name If type is 'static' then this must be set to the name of the static
+    group to use.
+-->
+<!ELEMENT try EMPTY>
+<!ATTLIST try 
+ type %DynamicObjectType; #REQUIRED
+ name %GroupName; #IMPLIED >
+
+<!--
+    Shape mask group.
+
+    Sub-hierarchy of groups and drawing operations that will create a shape
+    mask for the associated window.
+
+    @name Set to a unique name to allow other groups to inherit this group.
+-->
+<!ELEMENT shapemask ( inherit | group | path | line | rectangle | ellipse |
+                      solid | gradient | image | text | svg )* >
+<!ATTLIST shapemask
+ name %GroupName; #IMPLIED
+ %GroupAttributes; >
+
+<!--
+    Colorstop.
+
+    A color stop for linear and radial patterns.
+
+    @offset Pattern transition vector offset.
+    @color Stop color.
+    @opacity Stop opacity.
+-->
+<!ELEMENT colorstop EMPTY >
+<!ATTLIST colorstop
+ offset %Clamp; #REQUIRED
+ color %Color; #REQUIRED
+ opacity %Opacity; #IMPLIED >
+
+<!--
+    Drawing Pattern.
+
+    Specifices a pattern that can be used for stroking and filling.
+
+    @name Set to a unique name to allow other patterns to inherit this pattern.
+    @extend Set to 'true' if pattern should be extended instead of overwritten
+    when it already exist.
+    @type linear, radial or group pattern.
+    @filter Filter type.
+    @spread Spread type.
+    @start_x Start X position for linear pattern.
+    @start_y Start Y position for linear pattern.
+    @start_gravity Gravity of start_x, start_y point.
+    @end_x End X position for linear pattern.
+    @end_y End Y position for linear pattern.
+    @end_gravity Gravity of end_x, end_y point.
+    @center_x Center X position for radial pattern.
+    @center_y Center Y position for radial pattern.
+    @center_gravity Gravity of center_x, center_y point.
+    @radius_dx Horizontal radius for radial pattern.
+    @radisu_dy Vertical radius for radial pattern.
+-->
+<!ELEMENT pattern ( colorstop* ) >
+<!ATTLIST pattern
+ name %PatternName; #IMPLIED
+ extend %Boolean; 'false'
+ %InheritanceAttributes;
+ type %PatternType; #REQUIRED
+ filter %Filter; #IMPLIED
+ spread %Spread; #IMPLIED
+ start_x %PositionValue; #IMPLIED
+ start_y %PositionValue; #IMPLIED
+ start_gravity %Gravity; 'northwest'
+ end_x %PositionValue; #IMPLIED
+ end_y %PositionValue; #IMPLIED
+ end_gravity %Gravity; 'northwest'
+ center_x %PositionValue; #IMPLIED
+ center_y %PositionValue; #IMPLIED
+ center_gravity %Gravity; 'northwest'
+ radius_dx %SizeValue; #IMPLIED
+ radius_dy %SizeValue; #IMPLIED >
+
+<!--
+    Path render operation.
+
+    Contains a number of drawing instructions which will
+    create a path. The path is filled if fill-group or fill-color is
+    defined. The path is stroked if stroke-color is defined.
+
+    @name Set to a unique name to allow other paths to inherit this path.
+    @extend Set to 'true' if path should be extended instead of overwritten
+    when it already exist.
+-->
+<!ELEMENT path ( inherit | moveto | relmoveto | lineto | rellineto | curveto |
+                 relcurveto | close )* >
+<!ATTLIST path
+ name %PathName; #IMPLIED
+ extend %Boolean; 'false'
+ %InheritanceAttributes;
+ %DrawAttributes;
+ %AreaAttributes; >
+
+<!--
+    Move operator.
+
+    Moves current point of sub-path to this point.
+-->
+<!ELEMENT moveto EMPTY >
+<!ATTLIST moveto %PositionAttributes; >
+
+<!--
+    Relative move operator.
+
+    Moves current point of sub-path relative to current point.
+-->
+<!ELEMENT relmoveto EMPTY >
+<!ATTLIST relmoveto %SizeAttributes; >
+
+<!--
+    Line operator.
+
+    Draws a line from current point to this point.
+-->
+<!ELEMENT lineto EMPTY >
+<!ATTLIST lineto %PositionAttributes; >
+
+<!--
+    Relative line operator.
+
+    Draws a line relative to current point.
+-->
+<!ELEMENT rellineto EMPTY >
+<!ATTLIST rellineto %SizeAttributes; >
+
+<!--
+    Curve operator.
+
+    Draws a bezier curve from current point to this point. 'x1', 'y1' and
+    'x1', 'y2' are the control points.
+
+    @x1 X for control point 1.
+    @y1 Y for control point 1.
+    @gravity1 Gravity of 'x1', 'y1' point.
+    @x2 X for control point 2.
+    @y2 Y for control point 2.
+    @gravity2 Gravity of 'x2', 'y2' point.
+-->
+<!ELEMENT curveto EMPTY >
+<!ATTLIST curveto
+ %PositionAttributes;
+ x1 %PositionValue; #REQUIRED
+ y1 %PositionValue; #REQUIRED
+ gravity1 %Gravity; 'northwest'
+ x2 %PositionValue; #REQUIRED
+ y2 %PositionValue; #REQUIRED
+ gravity2 %Gravity; 'northwest' >
+
+<!--
+    Relative curve operator.
+
+    Draws bezier curve relative to the current point. 'width1', 'height1' and
+    'width2', 'height2' are the relative control points.
+
+    @width1 Horizontal relative offset for control point 1.
+    @height1 Vertical relative offset for control point 1.
+    @width2 Horizontal relative offset for control point 2.
+    @height2 Vertical relative offset for control point 2.
+-->
+<!ELEMENT relcurveto EMPTY>
+<!ATTLIST relcurveto
+ %SizeAttributes;
+ width1 %SizeValue; #REQUIRED
+ height1 %SizeValue; #REQUIRED
+ width2 %SizeValue; #REQUIRED
+ height2 %SizeValue; #REQUIRED >
+
+<!--
+    Close operator.
+
+    Operator the closes the current sub-path.
+-->
+<!ELEMENT close EMPTY >
+
+<!--
+    Line render operation.
+
+    Draws a line from top-left to bottom-right of specified area.
+-->
+<!ELEMENT line EMPTY >
+<!ATTLIST line
+ %DrawAttributes;
+ %AreaAttributes; >
+
+<!--
+    Rectangle render operation.
+
+    Draws a rectangle with possible corner rounding.
+
+    @rx Horizontal corner rounding. Applies to all four corners.
+    @ry Vertical corner rounding. Applies to all four corners.
+    @northwest_rx Horizontal corner rounding for northwest corner.
+    @northwest_ry Vertical corner rounding for northwest corner.
+    @northeast_rx Horizontal corner rounding for northeast corner.
+    @northeast_ry Vertical corner rounding for northeast corner.
+    @southwest_rx Horizontal corner rounding for southwest corner.
+    @southwest_ry Vertical corner rounding for southwest corner.
+    @southeast_rx Horizontal corner rounding for southeast corner.
+    @southeast_ry Vertical corner rounding for southeast corner.
+-->
+<!ELEMENT rectangle EMPTY >
+<!ATTLIST rectangle
+ %DrawAttributes;
+ %AreaAttributes;
+ rx %SizeValue; #IMPLIED
+ ry %SizeValue; #IMPLIED
+ northwest_rx %SizeValue; #IMPLIED
+ northwest_ry %SizeValue; #IMPLIED
+ northeast_rx %SizeValue; #IMPLIED
+ northeast_ry %SizeValue; #IMPLIED
+ southwest_rx %SizeValue; #IMPLIED
+ southwest_ry %SizeValue; #IMPLIED
+ southeast_rx %SizeValue; #IMPLIED
+ southeast_ry %SizeValue; #IMPLIED >
+
+<!--
+    Ellipse render operation.
+
+    Draws an ellipse of given width and height. This is actually a rectangle
+    with corner roundings set to 50% for all corners.
+-->
+<!ELEMENT ellipse EMPTY >
+<!ATTLIST ellipse
+ %DrawAttributes;
+ %AreaAttributes; >
+
+<!--
+    Text render operation.
+
+    Draws multiple lines of text in text area. Area attributes 
+    for this element specifies the text area. Size of text area is
+    calculated from the width and height of containing text of not
+    specified. The character data of this element is text to be
+    drawn. Text is in 'ExpandedString' format, see above for detailed
+    description of 'ExpandedString' format.
+
+    @extend Set to 'true' if text object should be extended instead of 
+    overwritten when it already exist.
+    @font Render text using this font.
+    @size Font size.
+    @weight Font weight.
+    @slant Font slant.
+    @static Set to 'true' if no expansion of text should be done.
+    @line_spacing Space between lines.
+    @tab_spacing Tab space.
+    @left_spacing Left text area spacing.
+    @right_spacing Right text area spacing.
+    @top_spacing Top text area spacing.
+    @bottom_spacing Bottom text area spacing.
+    @text_halign Horizontal line alignment of text
+    @shadow Set to 'true' if shadow should be rendered.
+    @shadow_color Shadow color.
+    @shadow_opacity Shadow opacity.
+    @shadow_voffset Vertical offset of shadow.
+    @shadow_hoffset Horizontal offset of shadow.
+    @dynamic_area_width Setting this to 'true' makes text area width 
+    shrink to vertical text extends, but it will not grow if vertical
+    text extends are greater then specified text area width.
+    @dynamic_area_height Same as above but instead effects area height.
+    @bg_group Prior to rendering text fill text area with this group.
+-->
+<!ELEMENT text ( #PCDATA | inherit )* >
+<!ATTLIST text
+ %AreaAttributes;
+ %DrawAttributes; 
+ %InheritanceAttributes;
+ extend %Boolean; 'false'
+ font %Font; #IMPLIED
+ size %SizeValue; #IMPLIED
+ weight %Weight; 'normal'
+ slant %Slant; 'normal'
+ static %Boolean; 'false'
+ line_spacing %SizeValue; #IMPLIED
+ tab_spacing %SizeValue; #IMPLIED
+ left_spacing %SizeValue; #IMPLIED
+ right_spacing %SizeValue; #IMPLIED
+ top_spacing %SizeValue; #IMPLIED
+ bottom_spacing %SizeValue; #IMPLIED
+ text_halign %HorizontalAlignment; #IMPLIED
+ shadow %Boolean; 'false'
+ shadow_color %Color; #IMPLIED
+ shadow_opacity %Opacity; #IMPLIED
+ shadow_voffset %SizeValue; #IMPLIED
+ shadow_hoffset %SizeValue; #IMPLIED 
+ dynamic_area_width %Boolean; "false"
+ dynamic_area_height %Boolean; "false" 
+ bg_group %GroupName; #IMPLIED >
+
+<!--
+    Solid render operation.
+
+    Fills a specified rectangle.
+
+    @color Fill color.
+    @opacity Fill opacity.
+-->
+<!ELEMENT solid EMPTY >
+<!ATTLIST solid
+ %AreaAttributes;
+ %RenderAttributes;
+ color %Color; #IMPLIED
+ opacity %Opacity; #IMPLIED >
+
+<!--
+    Image render operation.
+
+    Render an image to specified area. Scaling of image can be done
+    in three different ways: tiled, scaled, stretched. Character data of this
+    element should be the name of an image file in a supported format.
+
+    @src Image file.
+    @scaletype Scale type to use.
+-->
+<!ELEMENT image EMPTY >
+<!ATTLIST image
+ %AreaAttributes;
+ %RenderAttributes;
+ src %ImageFile; #IMPLIED
+ scaletype ( scaled | tiled ) 'scaled'>
+
+<!--
+    SVG render operation.
+
+    Render a SVG to specified area.
+
+    @file SVG filename.
+-->
+<!ELEMENT svg EMPTY >
+<!ATTLIST svg
+ %AreaAttributes;
+ %RenderAttributes;
+ file %SvgFile; #REQUIRED>
+
+<!--
+    Menu definition.
+
+    A menu contains a number of menu items.
+
+    @name Unique menu identifier.
+    @extend Set to 'true' if menu should be extended instead of overwritten
+    when it already exist.
+    @width_factor Factor by which the width of the menu should be scaled.
+-->
+<!ELEMENT menu ( inherit | item )* >
+<!ATTLIST menu
+ name %MenuName; #IMPLIED
+ %InheritanceAttributes;
+ extend %Boolean; 'false'
+ width_factor %Float; #IMPLIED >
+
+<!--
+    Menu item description.
+
+    Specifies menu item parts.
+
+    @name Menu item name.
+    @function Action function reference. Trigger when 'menuperform' is called.
+    @parameter Action function parameter.
+    @string Primary string attribute is expanded into style text elements
+    with '%m' character sequence.
+    @string2 Secondary string attribute is expanded into style text elements
+    with '%M' character sequence.
+    @image Image icon file, used in styles through dynamic 
+    type 'menuitemiconimage'.
+    @svg SVG icon file, used in styles through dynamic type 'menuitemiconsvg'.
+    @submenu Sub-menu reference.
+    @monitor_window_state Window state that item should monitor.
+-->
+<!ELEMENT item ( menu?, itemaction* ) >
+<!ATTLIST item
+ name %MenuItemName; #IMPLIED
+ function %ActionFunction; #IMPLIED
+ parameter %ActionFunctionParameter; #IMPLIED
+ string %ExpandedString; #IMPLIED
+ string2 %ExpandedString; #IMPLIED
+ image %ImageFile; #IMPLIED
+ svg %SvgFile; #IMPLIED
+ submenu %MenuName; #IMPLIED
+ monitor_window_state ( %WindowState; ) #IMPLIED >
+
+<!--
+    Menu item action definition.
+
+    Menu item action. Defines an additional action function reference which is
+    triggered when 'menuperform' is called.
+
+    @function Action function reference. Trigger when 'menuperform' is called.
+    @parameter Action function parameter.
+-->
+<!ELEMENT itemaction EMPTY >
+<!ATTLIST itemaction
+ function %ActionFunction; #REQUIRED
+ parameter %ActionFunctionParameter; #IMPLIED >
+
+<!--
+    Actionlist.
+
+    Contains a number of actions. When an event occur all actions in the
+    actionlist associated with the object effected by the event are
+    evaluated in order they have been inserted.
+
+    @name Unique actionlist identifier.
+    @extend Set to 'true' if group should be extended instead of overwritten
+    when it already exist.
+-->
+<!ELEMENT actionlist ( inherit | action )* >
+<!ATTLIST 
+ actionlist name %ActionListName; #REQUIRED
+ %InheritanceAttributes;
+ extend %Boolean; 'false' >
+
+<!--
+    Action definition.
+
+    Triggers a specified function if all details and constraints are met.
+
+    @function Action function reference.
+    @parameter Action function parameter, valid values depends on the chosen
+    action function.
+    @event Event which should trigger the action function.
+    @key Only trigger action function if 'key' match event detail.
+    @button Only trigger action function if 'button' match event detail.
+    @detail Only trigger action function if 'detail' match event detail.
+    @delay Trigger action function after this delay (in milliseconds).
+    @timer_id Timer ID used for delay, can be used with 'stoptimer'
+    function to abort trigger of action function.
+    @periodic_timer Set to 'true' if delay should start over after
+    trigger of action function.
+    @pass_through Set to 'true' to make event pass-through to client if it
+    occured on client window.
+    @priority Priority in actionlist, if not set priority '0' is used.
+-->
+<!ELEMENT action ( modifier )* >
+<!ATTLIST action
+ function %ActionFunction; #REQUIRED
+ parameter %ActionFunctionParameter; #IMPLIED
+ actionlist %ActionListName; #IMPLIED
+ event %EventType; #REQUIRED
+ key %Key; 'anykey'
+ button %Button; 'anybutton'
+ detail %EventDetail; #IMPLIED
+ delay %UnsignedInteger; #IMPLIED
+ timer_id %Integer; #IMPLIED
+ periodic_timer %Boolean; 'false'
+ pass_through %Boolean; 'false'
+ priority %Priority; #IMPLIED >
+
+<!--
+    Modifier constraint.
+
+    The constraint for the modifier must be met. Either 'name' attribute or
+    'key' attribute must be set.
+
+    @constraint The modifier constraint that should be met.
+    @name Mofifier name
+    @key If this key is mapped to a modifier then that modifier is used.
+-->
+<!ELEMENT modifier EMPTY >
+<!ATTLIST modifier 
+ constraint ( must_exist | must_not_exist ) 'must_exist'
+ name %Modifier; #IMPLIED
+ key %Key; #IMPLIED >
+
+<!--
+    Style/Actionlist assignment.
+
+    Assign styles and actionslist to objects. e.g.
+%
+    <match target="window" name="xterm" window="^titlebar$"
+           actionlist="window-actions"/>
+%
+    assigns the 'window-actions' actionlist to 'titlebar' windows of objects
+    with name containing 'xterm'.
+
+    @target Type of object that match should target.
+    @name Regular expression used for matching object name.
+    @class Regular expression used for matching object class.
+    @classname Regular expression used for matching object class-name.
+    @pid Regular expression used for matching client pid.
+    @host Regular expression used for matching client host name.
+    @resourceid Regular expression used for matching hexadecimal resource ID
+    string.
+    @window Regular expression used for matching sub-window name.
+    @state State of the matching object that should be associated. If
+    undefined, 'passive' state is used.
+    @style Style that matching object should be associated with.
+    @actionlist Actionlist that matching object should be associated with.
+-->
+<!ELEMENT match EMPTY >
+<!ATTLIST match
+ target ( window | menu | menuitem | dockappholder | dockapp | root |
+          screenedge ) #REQUIRED
+ name %RegularExpression; #IMPLIED
+ class %RegularExpression; #IMPLIED
+ classname %RegularExpression; #IMPLIED
+ pid %RegularExpression; #IMPLIED
+ host %RegularExpression; #IMPLIED
+ resourceid %RegularExpression; #IMPLIED
+ window %RegularExpression; #IMPLIED
+ state %State; #IMPLIED
+ style %StyleName; #IMPLIED
+ actionlist %ActionListName; #IMPLIED >
+
+<!--
+    Do something.
+
+    Trigger an action function on a specific window.
+
+    <do function="shade" target="window" name="xterm" window="^client$"/>
+
+    Tries to find object with name containing 'xterm' and
+    triggers action function 'shape' on all found objects.
+
+    @function Action function to trigger.
+    @parameter Action function parameter to use.
+    @applies Set to 'firstfound' to trigger the action function only
+    on the first found window that matches.
+    @target Type of object that match should target.
+    @name Regular expression used for matching object name.
+    @class Regular expression used for matching object class.
+    @classname Regular expression used for matching object class-name.
+    @pid Regular expression used for matching client pid.
+    @host Regular expression used for matching client host name.
+    @resourceid Regular expression used for matching hexadecimal resource ID
+    string.
+    @window Regular expression used for matching sub-window name.
+-->
+<!ELEMENT do EMPTY >
+<!ATTLIST do
+ function %ActionFunction; #REQUIRED
+ parameter %ActionFunctionParameter; #IMPLIED
+ target ( window | menu | menuitem | dockappholder | dockapp | root |
+          screenedge ) "window"
+ name %RegularExpression; #IMPLIED
+ class %RegularExpression; #IMPLIED
+ classname %RegularExpression; #IMPLIED
+ pid %RegularExpression; #IMPLIED
+ host %RegularExpression; #IMPLIED
+ resourceid %RegularExpression; #IMPLIED
+ window %RegularExpression; #IMPLIED >

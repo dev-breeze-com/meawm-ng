@@ -1,0 +1,15 @@
+?package(meawm_ng):needs=wm \
+	section="WindowManagers" title="meawm_ng" \
+	command="meawm_ng"
+?package(meawm_ng):needs=meawm_ng-sub \
+	section="meawm_ng" title="Styles" \
+	command="stylesdir.pl"
+?package(meawm_ng):needs=meawm_ng-sub \
+	section="meawm_ng" title="Proc Info" \
+	command="procinfo.pl"
+?package(meawm_ng):needs=meawm_ng \
+	section="meawm_ng" title="Restart" \
+	command="restart"
+?package(meawm_ng):needs=meawm_ng \
+	section="meawm_ng" title="Exit" \
+	command="exit"

@@ -1,0 +1,894 @@
+<?xml version="1.0"?>
+<!DOCTYPE waimea SYSTEM "@pkgdatadir@/waimea.dtd">
+
+<waimea version="@pkgversion@">
+
+  <style name="window-frame" left_spacing="7px" right_spacing="7px"
+         top_spacing="22px" bottom_spacing="7px">
+    <window raised="true">north</window>
+    <window>south</window>
+    <window>west</window>
+    <window>east</window>
+    <window>title</window>
+  </style>
+
+  <style name="window-frame-nodecor"/>
+
+  <style name="window-frame-notitle" left_spacing="7px" right_spacing="7px"
+         top_spacing="7px" bottom_spacing="7px">
+    <window raised="true">north</window>
+    <window>south</window>
+    <window>west</window>
+    <window>east</window>
+  </style>
+
+  <style name="window-frame-resizeing" left_spacing="7px" right_spacing="7px"
+         top_spacing="22px" bottom_spacing="7px">
+    <window raised="true">north</window>
+    <window>south</window>
+    <window>west</window>
+    <window>east</window>
+    <window>title</window>
+    <window>info</window>
+  </style>
+
+  <style name="window-frame-shaded" left_spacing="7px" right_spacing="7px"
+         top_spacing="22px" bottom_spacing="0">
+    <window raised="true">north</window>
+    <window>south</window>
+    <window>west</window>
+    <window>east</window>
+    <window>title</window>
+  </style>
+
+  <actionlist name="window-frame">
+    <inherit>window-frame-enter</inherit>
+    <action function="endmoveresize"
+            event="buttonrelease"
+            button="button1">
+      <modifier name="moveresize"/>
+    </action>
+    <action function="setpassivestyle" parameter="window-frame-resizeing"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier name="windowstateresize"/>
+      <modifier name="windowstatedecortitle"/>
+    </action>
+    <action function="defaultpassivestyle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstateresize"/>
+      <modifier name="windowstatedecortitle"/>
+    </action>
+    <action function="setpassivestyle" parameter="window-frame-nodecor"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstateresize"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+      <modifier constraint="must_not_exist" name="windowstatedecorborder"/>
+    </action>
+    <action function="setpassivestyle" parameter="window-frame-notitle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+      <modifier name="windowstatedecorborder"/>
+    </action>
+    <action function="setpassivestyle" parameter="window-frame-shaded"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+  </actionlist>
+
+  <match target="window" window="^frame$"
+         style="window-frame" actionlist="window-frame"/>
+
+  <pattern name="active-titlebar-grad" type="linear" 
+           start_x="50%" start_y="100%"
+           end_x="50%" end_y="0"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.00" color="fg-color-active"/>
+    <colorstop offset="0.05" color="fg-color-active"/>
+    <colorstop offset="0.05" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <style name="window-titlebar-passive"
+         x="7px" y="0" height="22px" x2="7px" gravity2="northeast">
+    <solid color="window-color-passive"/>
+    <dynamic x="0" y="3px" width="16px" height="16px"
+             opacity="0.5">
+      <try type="wmiconsvg"/>
+      <try type="wmiconimage"/>
+    </dynamic>
+    <text font="font" size="font-size" weight="bold"
+          x="20px" x2="20px" gravity2="northeast" 
+          y="16px" valign="center" text_halign="center"
+          fill_color="font-color-passive">%t</text>
+    <window>close</window>
+  </style>
+
+  <style name="window-titlebar-shaded-passive"
+         x="7px" y="0" height="22px" x2="7px" gravity2="northeast">
+    <solid color="window-color-passive"/>
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity2="northeast"
+          stroke_color="fg-color-passive"
+          linewidth="linewidth"/>
+    <dynamic x="0" y="3px" width="16px" height="16px"
+             opacity="0.5">
+      <try type="wmiconsvg"/>
+      <try type="wmiconimage"/>
+    </dynamic>
+    <text font="font" size="font-size" weight="bold"
+          x="20px" x2="20px" gravity2="northeast" 
+          y="16px" valign="center" text_halign="center"
+          fill_color="font-color-passive">%t</text>
+   <window>close</window>
+  </style>
+
+  <style name="window-titlebar-active"
+         x="7px" y="0" height="22px" x2="7px" gravity2="northeast">
+    <rectangle x="0" y="0" width="100%" height="100%"
+               fill_pattern="active-titlebar-grad"/>
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity2="northeast"
+          stroke_color="fg-color-active" linewidth="linewidth"/>
+    <dynamic x="0" y="3px" width="16px" height="16px">
+      <try type="wmiconsvg"/>
+      <try type="wmiconimage"/>
+    </dynamic>    
+    <text font="font" size="font-size" weight="bold"
+          x="20px" x2="20px" gravity2="northeast"
+          y="16px" valign="center" text_halign="center"
+          drawing_order="strokefill"
+          fill_color="font-color-active"
+          stroke_color="window-color1">%t</text>
+    <window>close</window>
+  </style>
+
+  <style name="window-titlebar-shaded-active"
+         x="7px" y="0" height="22px" x2="7px" gravity2="northeast">
+    <rectangle x="0" y="0" width="100%" height="100%"
+               fill_pattern="active-titlebar-grad"/>
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity2="northeast"
+          stroke_color="fg-color-active" linewidth="linewidth"/>
+    <dynamic x="0" y="3px" width="16px" height="16px">
+      <try type="wmiconsvg"/>
+      <try type="wmiconimage"/>
+    </dynamic>
+    <text font="font" size="font-size" weight="bold"
+          x="20px" x2="20px" gravity2="northeast"
+          y="16px" valign="center" text_halign="center"
+          drawing_order="strokefill"
+          fill_color="font-color-active"
+          stroke_color="window-color1">%t</text>
+    <window>close</window>
+  </style>
+
+  <actionlist name="window-titlebar">
+    <action function="windowraise"
+            event="buttonpress"
+            button="button1"/>
+    <action function="windowlower"
+            event="buttonpress"
+            button="button2"/>
+    <action function="unmapmenu" parameter="window"
+            event="buttonpress"
+            button="button1"/>
+    <action function="unmapmenu" parameter="window"
+            event="buttonpress"
+            button="button2"/>
+    <inherit>window-decor-move</inherit>    
+    <action function="windowtoggleshade"
+            event="doubleclick"
+            button="button1"/>
+    <action function="mapmenu" parameter="window"
+            event="buttonpress"
+            button="button3"/>
+    <action function="defaultpassivestyle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="defaultactivestyle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="setpassivestyle"
+            parameter="window-titlebar-shaded-passive"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+    <action function="setactivestyle"
+            parameter="window-titlebar-shaded-active"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+  </actionlist>
+
+  <match target="window" window="^frame.title$" 
+         style="window-titlebar-passive"
+         actionlist="window-titlebar"/>
+  <match target="window" window="^frame.title$" state="active"
+         style="window-titlebar-active"/>
+
+  <style name="window-close-passive" translucent="true"
+         x="16px" y="3px" gravity="northeast"
+         x2="0px" y2="2px" gravity2="southeast">
+    <path name="cross" fill_color="fg-color-passive">
+      <moveto x="1px" y="4px" gravity="northwest"/>    
+      <lineto x="3px" y="2px" gravity="northwest"/>
+      <lineto x="50%" y="6px" gravity="northwest"/>
+      <lineto x="3px" y="2px" gravity="northeast"/>
+      <lineto x="1px" y="4px" gravity="northeast"/>
+      <lineto x="5px" y="50%" gravity="northeast"/>
+      <lineto x="1px" y="4px" gravity="southeast"/>
+      <lineto x="3px" y="2px" gravity="southeast"/>
+      <lineto x="50%" y="6px" gravity="southeast"/>
+      <lineto x="3px" y="2px" gravity="southwest"/>
+      <lineto x="1px" y="4px" gravity="southwest"/>
+      <lineto x="5px" y="50%" gravity="southwest"/>
+      <close/>
+    </path>
+  </style>
+
+  <style name="window-close-active" translucent="true"
+         x="16px" y="3px" gravity="northeast"
+         x2="0px" y2="2px" gravity2="southeast">
+    <path fill_color="font-color-active" stroke_color="window-color1"
+          drawing_order="strokefill">
+      <inherit>cross</inherit>
+    </path>
+  </style>
+
+  <style name="window-close-hover" translucent="true"
+         x="16px" y="3px" gravity="northeast"
+         x2="0px" y2="2px" gravity2="southeast">
+    <path fill_color="font-color-active" stroke_color="#59a2ee"
+          drawing_order="strokefill">
+      <inherit>cross</inherit>
+    </path>
+  </style>
+
+  <style name="window-close-pressed" translucent="true"
+         x="16px" y="3px" gravity="northeast"
+         x2="0px" y2="2px" gravity2="southeast">
+    <path fill_color="font-color-active" stroke_color="#59a2ee"
+          drawing_order="fillstroke">
+      <inherit>cross</inherit>
+    </path>
+  </style>
+
+  <actionlist name="window-close">
+    <action function="windowclose"
+            event="buttonrelease"
+            button="button1"/>    
+  </actionlist>
+
+  <match target="window" window="^frame.title.close$" 
+         style="window-close-passive"/>
+  <match target="window" window="^frame.title.close$" state="active"
+         style="window-close-active"/>
+  <match target="window" window="^frame.title.close$" state="hover"
+         style="window-close-hover"
+         actionlist="window-close"/>
+  <match target="window" window="^frame.title.close$" state="pressed"
+         style="window-close-pressed"
+         actionlist="window-close"/>
+
+  <pattern name="active-top-grad" type="linear" 
+           start_x="50%" start_y="100%"
+           end_x="50%" end_y="0"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="fg-color-active"/>
+    <colorstop offset="0.2" color="fg-color-active"/>
+    <colorstop offset="0.2" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <style name="window-tophandle-passive" cursor="top_side"
+         x="7px" y="0" x2="7px" height="2px" gravity2="northeast">
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity2="northeast"
+          stroke_color="fg-color-passive"
+          linewidth="linewidth"/>
+  </style>
+
+  <style name="window-tophandle-notitle-passive" cursor="top_side" 
+         x="7px" y="0" x2="7px" height="7px" gravity2="northeast">
+    <solid color="window-color-passive"/>
+    <inherit>window-tophandle-passive</inherit>
+  </style>
+
+  <style name="window-tophandle-active" cursor="top_side"
+         x="7px" y="0" x2="7px" height="2px" gravity2="northeast">
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity2="northeast"
+          stroke_color="fg-color-active" linewidth="linewidth"/>
+  </style>
+
+  <style name="window-tophandle-notitle-active" cursor="top_side" 
+         x="7px" y="0" x2="7px" height="7px" gravity2="northeast">
+    <rectangle x="0" y="0" width="100%" height="100%"
+               fill_pattern="active-top-grad"/>
+    <inherit>window-tophandle-active</inherit>
+  </style>
+
+  <actionlist name="window-tophandle">
+    <inherit>window-decor</inherit>
+    <inherit>window-decor-resize-up</inherit>
+    <action function="setpassivestyle"
+            parameter="window-tophandle-notitle-passive"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+    </action>
+    <action function="setactivestyle"
+            parameter="window-tophandle-notitle-active"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+    </action>
+    <action function="defaultpassivestyle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier name="windowstatedecortitle"/>
+    </action>
+    <action function="defaultactivestyle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier name="windowstatedecortitle"/>
+    </action>
+    <action function="defaultpassivestyle"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+    <action function="defaultactivestyle"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+  </actionlist>
+
+  <match target="window" window="^frame.north$"
+         style="window-tophandle-passive"
+         actionlist="window-tophandle"/>
+  <match target="window" window="^frame.north$" state="active"
+         style="window-tophandle-active"/>
+
+  <pattern name="active-bottom-grad" type="linear" 
+           start_x="50%" start_y="0"
+           end_x="50%" end_y="100%"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="fg-color-active"/>
+    <colorstop offset="0.1" color="fg-color-active"/>
+    <colorstop offset="0.1" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <style name="window-bottomhandle-passive" 
+         cursor="bottom_side" 
+         x="7px" y="0" x2="7px" height="7px" gravity="southwest"
+         gravity2="southeast" valign="bottom">
+    <solid color="window-color-passive"/>
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity="southwest"
+          gravity2="southeast" stroke_color="fg-color-passive"
+          linewidth="linewidth"/>
+  </style>
+
+  <style name="window-bottomhandle-shaded-passive"
+         cursor="bottom_side" 
+         x="7px" y="0" x2="7px" height="2px" gravity="southwest"
+         gravity2="southeast" valign="bottom">
+    <solid color="window-color-passive"/>
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity="southwest"
+          gravity2="southeast" stroke_color="fg-color-passive"
+          linewidth="linewidth"/>
+  </style>
+
+  <style name="window-bottomhandle-active" cursor="bottom_side"
+         x="7px" y="0" x2="7px" height="7px" gravity="southwest"
+         gravity2="southeast" valign="bottom">
+    <rectangle x="0" y="0" width="100%" height="100%"
+               fill_pattern="active-bottom-grad"/>
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity="southwest"
+          gravity2="southeast" stroke_color="fg-color-active" 
+          linewidth="linewidth"/>
+  </style>
+
+  <style name="window-bottomhandle-shaded-active" cursor="bottom_side"
+         x="7px" y="0" x2="7px" height="2px" gravity="southwest"
+         gravity2="southeast" valign="bottom">
+    <rectangle x="0" y="0" width="100%" height="100%"
+               fill_pattern="active-bottom-grad"/>
+    <line x="-2px" y="1px" x2="-2px" y2="1px" gravity="southwest"
+          gravity2="southeast" stroke_color="fg-color-active"
+          linewidth="linewidth"/>
+  </style>
+
+  <actionlist name="window-bottomhandle">
+    <inherit>window-decor</inherit>
+    <inherit>window-decor-resize-down</inherit>
+    <action function="defaultpassivestyle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="defaultactivestyle"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="setpassivestyle"
+            parameter="window-bottomhandle-shaded-passive"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+    <action function="setactivestyle"
+            parameter="window-bottomhandle-shaded-active"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+  </actionlist>
+
+  <match target="window" window="^frame.south$"
+         style="window-bottomhandle-passive"
+         actionlist="window-bottomhandle"/>
+  <match target="window" window="^frame.south$" state="active"
+         style="window-bottomhandle-active"/>
+
+  <pattern name="active-left-grad" type="linear" 
+           start_x="100%" start_y="50%"
+           end_x="0" end_y="50%"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="fg-color-active"/>
+    <colorstop offset="0.2" color="fg-color-active"/>
+    <colorstop offset="0.2" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <pattern name="active-top-left-grad" type="radial"
+           center_x="8px" center_y="21px"
+           radius_dx="8px" radius_dy="21px"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="window-color1"/>
+    <colorstop offset="0.05" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <pattern name="active-small-top-left-grad" type="radial"
+           center_x="7px" center_y="6px"
+           radius_dx="5px" radius_dy="4px"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="window-color1"/>
+    <colorstop offset="0.05" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <pattern name="active-bottom-left-grad" type="radial"
+           center_x="7px" center_y="6px" center_gravity="southwest"
+           radius_dx="5px" radius_dy="4px"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="window-color1"/>
+    <colorstop offset="0.05" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <style name="window-lefthandle-passive"
+         cursor="left_side" alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%">
+    <rectangle stroke_color="fg-color-passive" linewidth="linewidth"
+               fill_color="window-color-passive"
+               x="1px" y="1px" x2="-1px" y2="1px" gravity2="southeast"
+               northwest_rx="7px" northwest_ry="7px"
+               southwest_rx="7px" southwest_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-lefthandle-notitle-passive"
+         cursor="left_side" alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%">
+    <rectangle stroke_color="fg-color-passive" linewidth="linewidth"
+               fill_color="window-color-passive"
+               x="1px" y="1px" x2="-1px" y2="1px" gravity2="southeast"
+               northwest_rx="7px" northwest_ry="7px"
+               southwest_rx="7px" southwest_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-lefthandle-shaded-passive"
+         cursor="left_side" alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%">
+    <rectangle stroke_color="fg-color-passive" linewidth="linewidth"
+               fill_color="window-color-passive"
+               x="1px" y="1px" x2="-1px" y2="1px" gravity2="southeast"
+               northwest_rx="7px" northwest_ry="7px"
+               southwest_rx="7px" southwest_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-lefthandle-active" cursor="left_side"
+         alpha_level_shape="true" x="0" y="0" width="7px" height="100%">
+    <rectangle fill_pattern="active-left-grad"
+               x="1px" y="21px" x2="0" y2="6px" gravity2="southeast"/>
+    <line x="1px" y="20px" x2="1px" y2="8px" gravity2="southwest"
+          stroke_color="fg-color-active" linewidth="linewidth"/>
+    <path fill_pattern="active-top-left-grad">
+      <moveto x="1px" y="21px"/>
+      <lineto x="1px" y="8px"/>
+      <curveto x="8px" y="1px" x1="1px" y1="3.45px" x2="3.45px" y2="1px"/>
+      <lineto x="8px" y="21px"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="21px"/>
+      <lineto x="1px" y="8px"/>
+      <curveto x="8px" y="1px" x1="1px" y1="3.45px" x2="3.45px" y2="1px"/>
+    </path>
+    <path fill_pattern="active-bottom-left-grad">
+      <moveto x="1px" y="6px" gravity="southwest"/>      
+      <curveto x="7px" y="1px" gravity="southwest"
+               x1="1px" y1="3.45px" gravity1="southwest"
+               x2="3.45px" y2="1px" gravity2="southwest"/>
+      <lineto x="7px" y="6px" gravity="southwest"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="8px" gravity="southwest"/>      
+      <curveto x="8px" y="1px" gravity="southwest"
+               x1="1px" y1="3.45px" gravity1="southwest"
+               x2="3.45px" y2="1px" gravity2="southwest"/>
+    </path>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-lefthandle-notitle-active" cursor="left_side"
+         alpha_level_shape="true" x="0" y="0" width="7px" height="100%">
+    <rectangle fill_pattern="active-left-grad"
+               x="1px" y="6px" x2="0" y2="6px" gravity2="southeast"/>
+    <line x="1px" y="8px" x2="1px" y2="8px" gravity2="southwest"
+          stroke_color="fg-color-active" linewidth="linewidth"/>
+    <path fill_pattern="active-small-top-left-grad">
+      <moveto x="1px" y="6px"/>
+      <curveto x="7px" y="1px" x1="1px" y1="3.45px" x2="3.45px" y2="1px"/>
+      <lineto x="7px" y="6px"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="8px"/>
+      <lineto x="1px" y="8px"/>
+      <curveto x="8px" y="1px" x1="1px" y1="3.45px" x2="3.45px" y2="1px"/>
+    </path>
+    <path fill_pattern="active-bottom-left-grad">
+      <moveto x="1px" y="6px" gravity="southwest"/>      
+      <curveto x="7px" y="1px" gravity="southwest"
+               x1="1px" y1="3.45px" gravity1="southwest"
+               x2="3.45px" y2="1px" gravity2="southwest"/>
+      <lineto x="7px" y="6px" gravity="southwest"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="8px" gravity="southwest"/>      
+      <curveto x="8px" y="1px" gravity="southwest"
+               x1="1px" y1="3.45px" gravity1="southwest"
+               x2="3.45px" y2="1px" gravity2="southwest"/>
+    </path>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-lefthandle-shaded-active" cursor="left_side"
+         alpha_level_shape="true" x="0" y="0" width="7px" height="100%">
+    <rectangle stroke_color="fg-color-active" linewidth="linewidth"
+               fill_pattern="active-titlebar-grad"
+               x="1px" y="1px" x2="-1px" y2="1px" gravity2="southeast"
+               northwest_rx="7px" northwest_ry="7px"
+               southwest_rx="7px" southwest_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <actionlist name="window-lefthandle">
+    <inherit>window-decor</inherit>
+    <inherit>window-decor-resize-left</inherit>
+    <action function="setpassivestyle"
+            parameter="window-lefthandle-notitle-passive"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+    </action>
+    <action function="setactivestyle"
+            parameter="window-lefthandle-notitle-active"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+    </action>
+    <action function="defaultpassivestyle"
+            event="windowstatechangenotify">
+      <modifier name="windowstatedecortitle"/>
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="defaultactivestyle"
+            event="windowstatechangenotify">
+      <modifier name="windowstatedecortitle"/>
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="setpassivestyle" 
+            parameter="window-lefthandle-shaded-passive"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+    <action function="setactivestyle" 
+            parameter="window-lefthandle-shaded-active"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+  </actionlist>
+
+  <match target="window" window="^frame.west$"
+         style="window-lefthandle-passive"
+         actionlist="window-lefthandle"/>
+  <match target="window" window="^frame.west$" state="active"
+         style="window-lefthandle-active"/>
+
+
+    <pattern name="active-right-grad" type="linear" 
+           start_x="0" start_y="50%"
+           end_x="100%" end_y="50%"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="fg-color-active"/>
+    <colorstop offset="0.1" color="fg-color-active"/>
+    <colorstop offset="0.1" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <pattern name="active-top-right-grad" type="radial"
+           center_x="8px" center_y="21px" center_gravity="northeast"
+           radius_dx="8px" radius_dy="21px"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="window-color1"/>
+    <colorstop offset="0.05" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <pattern name="active-small-top-right-grad" type="radial"
+           center_x="7px" center_y="6px" center_gravity="northeast"
+           radius_dx="5px" radius_dy="4px"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="window-color1"/>
+    <colorstop offset="0.05" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+  <pattern name="active-bottom-right-grad" type="radial"
+           center_x="7px" center_y="6px" center_gravity="southeast"
+           radius_dx="5px" radius_dy="4px"
+           spread="none" filter="pattern-filter">
+    <colorstop offset="0.0" color="window-color1"/>
+    <colorstop offset="0.05" color="window-color1"/>
+    <colorstop offset="1.0" color="window-color2"/>
+  </pattern>
+
+    <style name="window-righthandle-passive"
+         cursor="right_side" alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%" gravity="northeast"
+         halign="right">
+    <rectangle stroke_color="fg-color-passive" linewidth="linewidth" 
+               fill_color="window-color-passive"
+               x="-1px" y="1px" x2="1px" y2="1px" gravity2="southeast"
+               northeast_rx="7px" northeast_ry="7px"
+               southeast_rx="7px" southeast_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-righthandle-notitle-passive"
+         cursor="right_side" alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%" gravity="northeast"
+         halign="right">
+    <rectangle stroke_color="fg-color-passive" linewidth="linewidth" 
+               fill_color="window-color-passive"
+               x="-1px" y="1px" x2="1px" y2="1px" gravity2="southeast"
+               northeast_rx="7px" northeast_ry="7px"
+               southeast_rx="7px" southeast_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-righthandle-shaded-passive"
+         cursor="right_side" alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%" gravity="northeast"
+         halign="right">
+    <rectangle stroke_color="fg-color-passive" linewidth="linewidth" 
+               fill_color="window-color-passive"
+               x="-1px" y="1px" x2="1px" y2="1px" gravity2="southeast"
+               northeast_rx="7px" northeast_ry="7px"
+               southeast_rx="7px" southeast_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-righthandle-active" cursor="right_side" 
+         alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%" gravity="northeast"
+         halign="right">
+    <rectangle fill_pattern="active-right-grad"
+               x="0" y="21px"
+               x2="1px" y2="6px" gravity2="southeast"/>
+    <line x="1px" y="20px" gravity="northeast"
+          x2="1px" y2="8px" gravity2="southeast"
+          stroke_color="fg-color-active" linewidth="linewidth"/>
+    <path fill_pattern="active-top-right-grad">
+      <moveto x="1px" y="21px" gravity="northeast"/>
+      <lineto x="1px" y="8px" gravity="northeast"/>
+      <curveto x="8px" y="1px" gravity="northeast"
+               x1="1px" y1="3.45px" gravity1="northeast"
+               x2="3.45px" y2="1px" gravity2="northeast"/>
+      <lineto x="8px" y="21px" gravity="northeast"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="21px" gravity="northeast"/>
+      <lineto x="1px" y="8px" gravity="northeast"/>
+      <curveto x="8px" y="1px" gravity="northeast"
+                x1="1px" y1="3.45px" gravity1="northeast"
+                x2="3.45px" y2="1px" gravity2="northeast"/>
+    </path>
+    <path fill_pattern="active-bottom-right-grad">
+      <moveto x="1px" y="6px" gravity="southeast"/>      
+      <curveto x="7px" y="1px" gravity="southeast"
+               x1="1px" y1="3.45px" gravity1="southeast"
+               x2="3.45px" y2="1px" gravity2="southeast"/>
+      <lineto x="7px" y="6px" gravity="southeast"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="8px" gravity="southeast"/>      
+      <curveto x="8px" y="1px" gravity="southeast"
+               x1="1px" y1="3.45px" gravity1="southeast"
+               x2="3.45px" y2="1px" gravity2="southeast"/>
+    </path>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-righthandle-notitle-active" cursor="right_side" 
+         alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%" gravity="northeast"
+         halign="right">
+    <rectangle fill_pattern="active-right-grad"
+               x="0" y="6px"
+               x2="1px" y2="5px" gravity2="southeast"/>
+    <line x="1px" y="7px" gravity="northeast"
+          x2="1px" y2="8px" gravity2="southeast"
+          stroke_color="fg-color-active" linewidth="linewidth"/>
+    <path fill_pattern="active-small-top-right-grad">
+      <moveto x="1px" y="6px" gravity="northeast"/>
+      <curveto x="7px" y="1px" gravity="northeast"
+               x1="1px" y1="3.45px" gravity1="northeast"
+               x2="3.45px" y2="1px" gravity2="northeast"/>
+      <lineto x="7px" y="6px" gravity="northeast"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="21px" gravity="northeast"/>
+      <lineto x="1px" y="8px" gravity="northeast"/>
+      <curveto x="8px" y="1px" gravity="northeast"
+                x1="1px" y1="3.45px" gravity1="northeast"
+                x2="3.45px" y2="1px" gravity2="northeast"/>
+    </path>
+    <path fill_pattern="active-bottom-right-grad">
+      <moveto x="1px" y="6px" gravity="southeast"/>      
+      <curveto x="7px" y="1px" gravity="southeast"
+               x1="1px" y1="3.45px" gravity1="southeast"
+               x2="3.45px" y2="1px" gravity2="southeast"/>
+      <lineto x="7px" y="6px" gravity="southeast"/>
+      <close/>
+    </path>
+    <path stroke_color="fg-color-active">
+      <moveto x="1px" y="8px" gravity="southeast"/>      
+      <curveto x="8px" y="1px" gravity="southeast"
+               x1="1px" y1="3.45px" gravity1="southeast"
+               x2="3.45px" y2="1px" gravity2="southeast"/>
+    </path>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <style name="window-righthandle-shaded-active" cursor="right_side" 
+         alpha_level_shape="true"
+         x="0" y="0" width="7px" height="100%" gravity="northeast"
+         halign="right">
+    <rectangle stroke_color="fg-color-active" linewidth="linewidth" 
+               fill_pattern="active-titlebar-grad"
+               x="-1px" y="1px" x2="1px" y2="1px" gravity2="southeast"
+               northeast_rx="7px" northeast_ry="7px"
+               southeast_rx="7px" southeast_ry="7px"/>
+    <window>up</window>
+    <window>down</window>
+  </style>
+
+  <actionlist name="window-righthandle">
+    <inherit>window-decor</inherit>
+    <inherit>window-decor-resize-right</inherit>
+    <action function="setpassivestyle"
+            parameter="window-righthandle-notitle-passive"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+    </action>
+    <action function="setactivestyle"
+            parameter="window-righthandle-notitle-active"
+            event="windowstatechangenotify">
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+      <modifier constraint="must_not_exist" name="windowstatedecortitle"/>
+    </action>
+    <action function="defaultpassivestyle"
+            event="windowstatechangenotify">
+      <modifier name="windowstatedecortitle"/>
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="defaultactivestyle"
+            event="windowstatechangenotify">
+      <modifier name="windowstatedecortitle"/>
+      <modifier constraint="must_not_exist" name="windowstateshaded"/>
+    </action>
+    <action function="setpassivestyle"
+            parameter="window-righthandle-shaded-passive"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+    <action function="setactivestyle"
+            parameter="window-righthandle-shaded-active"
+            event="windowstatechangenotify">
+      <modifier name="windowstateshaded"/>
+    </action>
+  </actionlist>
+
+  <match target="window" window="^frame.east$"
+         style="window-righthandle-passive"
+         actionlist="window-righthandle"/>
+  <match target="window" window="^frame.east$" state="active"
+         style="window-righthandle-active"/>
+
+
+  <style name="up-left" translucent="true" cursor="top_left_corner"
+         x="0" y="0" width="7px" height="7px"/>
+
+  <style name="down-left" translucent="true" cursor="bottom_left_corner"
+         x="0" y="0" width="7px" height="7px"
+	 gravity="southwest" valign="bottom"/>
+
+  <style name="up-right" translucent="true" cursor="top_right_corner"
+         x="0" y="0" width="7px" height="7px"
+         gravity="northeast" halign="right"/>
+
+  <style name="down-right" translucent="true" cursor="bottom_right_corner"
+         x="0" y="0" width="7px" height="7px"
+	 gravity="southeast" valign="bottom" halign="right"/>
+
+  <match target="window" window="^frame.west.up$"
+         style="up-left" actionlist="window-decor-resize-upleft"/>
+  <match target="window" window="^frame.west.down$"
+         style="down-left" actionlist="window-decor-resize-downleft"/>
+  <match target="window" window="^frame.east.up$"
+         style="up-right" actionlist="window-decor-resize-upright"/>
+  <match target="window" window="^frame.east.down$"
+         style="down-right" actionlist="window-decor-resize-downright"/>
+
+
+  <style name="window-info" x="50%" y="50%" width="100px" 
+         height="22px"
+         valign="center" halign="center" alpha_level_shape="true"
+         translucent="true">
+    <rectangle x="1px" y="1px" x2="1px" y2="1px"
+               gravity2="southeast"
+               rx="7px" ry="7px" stroke_color="fg-color-active" 
+               linewidth="linewidth"
+               fill_pattern="active-titlebar-grad"/>
+    <text font="font" size="font-size" weight="bold"
+          drawing_order="strokefill"
+          fill_color="font-color-active"
+          stroke_color="window-color1"
+          x="50%" y="16px" valign="center" halign="center">%wx%h</text>
+  </style>
+
+  <match target="window" window="^frame.info$" style="window-info"/>
+
+</waimea>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+  <!-- Creates an actionlist which moves assiciated clients to the position 
+       of the pointer when mapped. -->
+  <actionlist name="window-client-passive-fterm">
+    <inherit>window-client-passive</inherit>
+    <action function="windowmovetopointer"
+            event="maprequest"/>
+  </actionlist>
+
+  <!-- Client windows with class name that equals 'fterm' should use
+       actionlist 'window-client-passive-fterm'. -->
+  <match target="window" classname="^fterm$" window="^client$" 
+         actionlist="window-client-passive-fterm"/>
+
+  <!-- Creates an actionlist which turns off all window decoration flags
+       for a client when mapped. -->
+  <actionlist name="window-client-passive-nodecor">
+    <action function="windowdecoralloff"
+            event="maprequest"/>
+    <inherit>window-client-passive</inherit>
+  </actionlist>
+
+  <!-- Client windows with name that that matches regular expression
+       '^*Licq.*\(david\)' should use actionlist
+       'window-client-passive-nodecor'. -->
+  <match target="window" name="^*Licq.*\(david\)" window="^client$"
+         actionlist="window-client-passive-nodecor"/>
+
+  
+  <!-- Creates an actionlist which moves associated dockapp client to
+       dockapp holder 'bottomright' when mapped. -->
+  <actionlist name="dockapp-load">
+    <action function="dockappaddtoholder" parameter="bottomright"
+            event="dockappaddrequest"/>
+  </actionlist>
+
+<!-- Dockapp client windows with class name that ends with 'load' should use
+     actionlist 'dockapp-load'. -->
+  <match target="dockapp" classname="load$"
+         actionlist="dockapp-load"/>
+
+</meawm_ng>

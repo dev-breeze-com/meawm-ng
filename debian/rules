@@ -1,0 +1,74 @@
+#!/usr/bin/make -f
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -g
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+
+config.status: configure
+	dh_testdir
+
+	./configure --prefix=/ --mandir=\$${prefix}usr/share/man --infodir=\$${prefix}usr/share/info --datadir=\$${prefix}usr/share --exec-prefix=\$${prefix}usr --enable-xrender --enable-xft --enable-pixmap
+
+
+build: build-stamp
+
+build-stamp:  config.status
+	dh_testdir
+
+	$(MAKE)
+
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp 
+
+	-$(MAKE) distclean
+	-test -r /usr/share/misc/config.sub && \
+	  cp -f /usr/share/misc/config.sub config.sub
+	-test -r /usr/share/misc/config.guess && \
+	  cp -f /usr/share/misc/config.guess config.guess
+
+
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	$(MAKE) install prefix=$(CURDIR)/debian/meawm_ng/ exec-prefix=$(CURDIR/usr)
+	install -m 755 debian/meawm_ng.sample-gdm-session debian/meawm_ng/etc/gdm/Sessions/meawm_ng
+	install -m 644 debian/meawm_ng-config debian/meawm_ng/etc/X11/meawm_ng/config
+#	install -m 644 data/menus/menu.conf debian/meawm_ng/etc/X11/meawm_ng/menu.conf
+#	rm debian/meawm_ng/usr/share/meawm_ng/config
+#	rm debian/meawm_ng/usr/share/meawm_ng/menu
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installexamples
+	dh_installmenu
+	dh_installcron
+	dh_installman
+	dh_installinfo
+	dh_installchangelogs ChangeLog
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install 

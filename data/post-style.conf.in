@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+  <!-- Creates a style for a dockapp holder positioned in the
+       bottom-right corner of the screen. -->
+  <style name="dockappholder-bottomright" 
+         inherit="dockappholder" ignore_missing="true"
+         x="1mm" y="1mm" orientation="horizontal"
+         valign="bottom" halign="right" gravity="southeast">
+    <inherit ignore_missing="true">dockappholder</inherit>
+  </style>
+
+  <!-- Dockapp holder with name 'bottomright' should use style
+       'dockappholder-bottomright'. -->
+  <match target="dockappholder" name="^bottomright$"
+         style="dockappholder-bottomright"/>
+
+</meawm_ng>

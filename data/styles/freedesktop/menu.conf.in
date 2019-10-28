@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<!DOCTYPE waimea SYSTEM "@pkgdatadir@/waimea.dtd">
+
+<waimea version="@pkgversion@">
+
+  <style name="menu-frame" width="170px" alpha_level_shape="true">
+    <rectangle x="1px" y="1px" x2="1px" y2="1px" gravity2="southeast"
+               fill_color="window-color-passive" 
+               stroke_color="fg-color-passive"
+               drawing_order="strokefill"
+               rx="1px" ry="1px"/>
+  </style>
+
+  <match target="menu" window="^frame$" style="menu-frame"/>
+
+
+  <style name="menu-item-info" focusable="true" translucent="true"
+         height="26px">
+    <text font="font" size="font-size" fill_color="fg-color-passive"
+          x="28px" y="17px" x2="15px" gravity2="northeast"
+          valign="center" text_halign="left">%m</text>
+    <dynamic x="6px" y="5px" width="16px" height="16px">
+      <try type="menuitemiconsvg"/>
+      <try type="menuitemiconimage"/>
+    </dynamic>
+  </style>
+
+  <style name="menu-item" focusable="true" translucent="true" height="26px">
+    <text font="font" size="font-size" fill_color="fg-color-active"
+          x="28px" y="17px" x2="15px" gravity2="northeast"
+          valign="center" text_halign="left">%m</text>
+    <dynamic x="6px" y="5px" width="16px" height="16px">
+      <try type="menuitemiconsvg"/>
+      <try type="menuitemiconimage"/>
+    </dynamic>
+  </style>
+
+  <style name="menu-item-hilited" focusable="true" translucent="true"
+         height="26px">
+    <rectangle x="3px" y="3px" x2="3px" y2="3px" gravity2="southeast"
+               fill_color="#3d70a8" stroke_color="fg-color-active"
+               drawing_order="strokefill"
+               rx="2px" ry="2px"/>
+    <text font="font" size="font-size" fill_color="font-color-active"
+          x="28px" y="17px" x2="15px" gravity2="northeast"
+          valign="center" text_halign="left">%m</text>
+    <dynamic x="6px" y="5px" width="16px" height="16px">
+      <try type="menuitemiconsvg"/>
+      <try type="menuitemiconimage"/>
+    </dynamic>
+  </style>
+
+  <actionlist name="menu-item">
+    <inherit>menu-item-key-bindings</inherit>
+    <inherit>menu-item-button-mappings</inherit>
+  </actionlist>
+
+  <actionlist name="menu-item-hover">
+    <inherit>menu-item-key-bindings</inherit>
+    <inherit>menu-item-hover-button-mappings</inherit>
+    <action function="menuunmapothersubmenus"
+            event="enternotify"/>
+  </actionlist>
+
+  <match target="menu" window="^info$" 
+         style="menu-item-info" actionlist="menu-item"/>
+  <match target="menu" window="^item$" 
+         style="menu-item" actionlist="menu-item"/>
+  <match target="menu" window="^item$" state="active"
+         style="menu-item-hilited"/>
+  <match target="menu" window="^item$" state="hover"
+         style="menu-item-hilited" actionlist="menu-item-hover"/>
+  <match target="menu" window="^item$" state="pressed"
+         style="menu-item-hilited"/>
+
+
+  <style name="menu-item-title" height="13px" translucent="true">
+    <line x="2%" y="50%" width="96%" height="0" valign="center"
+          linewidth="0.5" stroke_color="#000000" stroke_dasharray="6px,6px"/>
+  </style>
+
+  <actionlist name="menu-item-title">
+    <inherit>menu-item-title-button-mappings</inherit>
+    <inherit>menu-item-move</inherit>
+  </actionlist>
+
+  <match target="menu" window="^title$"
+         style="menu-item-title" actionlist="menu-item-title"/>
+
+
+  <style name="menu-item-sub" focusable="true" translucent="true"
+         height="26px">
+    <inherit>menu-item</inherit>
+    <path fill_color="#000000">
+      <moveto gravity="northeast" x="12px" y="8px"/>
+      <rellineto width="5px" height="4px"/>
+      <rellineto width="-5px" height="4px"/>
+      <close/>
+    </path>
+  </style>
+
+  <style name="menu-item-sub-hilited" focusable="true" translucent="true"
+         height="24px">
+    <inherit>menu-item-hilited</inherit>
+    <path fill_color="font-color-active">
+      <moveto gravity="northeast" x="12px" y="8px"/>
+      <rellineto width="5px" height="4px"/>
+      <rellineto width="-5px" height="4px"/>
+      <close/>
+    </path>
+  </style>
+
+  <actionlist name="menu-item-sub">
+    <inherit>menu-item-sub-key-bindings</inherit>
+    <inherit>menu-item-button-mappings</inherit>
+    <action function="menuremapsubmenu" parameter="-4px"
+            event="keypress"
+            key="Right"/>
+    <action function="menuremapsubmenu" parameter="-4px"
+            event="keypress"
+            key="Return"/>
+  </actionlist>
+
+  <actionlist name="menu-item-sub-hover">
+    <inherit>menu-item-sub-key-bindings</inherit>
+     <inherit>menu-item-button-mappings</inherit>
+    <action function="menuunmapothersubmenus"
+            event="enternotify"/>
+    <action function="menumapsubmenu" parameter="-4px"
+            event="enternotify"/>
+    <action function="menuremapsubmenu" parameter="-4px"
+            event="buttonpress"
+            button="button1"/>
+    <action function="menuremapsubmenu" parameter="-4px"
+            event="keypress"
+            key="Right"/>
+    <action function="menuremapsubmenu" parameter="-4px"
+            event="keypress"
+            key="Return"/>
+  </actionlist>
+
+  <match target="menu" window="^sub$" 
+         style="menu-item-sub" actionlist="menu-item-sub"/>
+  <match target="menu" window="^sub$" state="active"
+         style="menu-item-sub-hilited"/>
+  <match target="menu" window="^sub$" state="hover"
+         style="menu-item-sub-hilited" actionlist="menu-item-sub-hover"/>
+  <match target="menu" window="^sub$" state="pressed"
+         style="menu-item-sub-hilited"/>
+
+
+  <style name="menu-item-separator" height="5px" translucent="true">
+    <line x="5%" y="50%" width="90%" height="0" valign="center"
+          linewidth="0.5" stroke_color="#000000"/>
+  </style>
+
+  <match target="menu" window="^separator$" style="menu-item-separator"/>
+
+
+  <style name="menu-item-checkbox" focusable="true" translucent="true" 
+         height="26px">
+    <inherit>menu-item</inherit>
+    <ellipse fill_color="#000000" x="12px" y="50%" width="3px" height="3px"
+             halign="center" valign="center"/>
+  </style>
+
+  <style name="menu-item-checkbox-hilited" focusable="true" translucent="true" 
+         height="26px">
+    <inherit>menu-item-hilited</inherit>
+    <ellipse fill_color="font-color-active"
+             x="12px" y="50%" width="3px" height="3px"
+             halign="center" valign="center"/>
+  </style>
+
+  <style name="menu-item-checkbox-true" focusable="true" translucent="true" 
+         height="24px">
+    <inherit>menu-item</inherit>
+    <ellipse fill_color="#000000" x="12px" y="50%" width="8px" height="8px"
+             halign="center" valign="center"/>
+  </style>
+
+  <style name="menu-item-checkbox-true-hilited" focusable="true" 
+         translucent="true" height="24px">
+    <inherit>menu-item-hilited</inherit>
+    <ellipse fill_color="font-color-active"
+             x="12px" y="50%" width="8px" height="8px"
+             halign="center" valign="center"/>
+  </style>
+
+  <actionlist name="menu-item-checkbox">
+    <inherit>menu-item-key-bindings</inherit>
+    <inherit>menu-item-button-mappings</inherit>
+    <action function="menuunmapothersubmenus"
+            event="enternotify"/>
+    <action function="setpassivestyle" parameter="menu-item-checkbox-true"
+            event="stateaddnotify"/>
+    <action function="setactivestyle" 
+            parameter="menu-item-checkbox-true-hilited"
+            event="stateaddnotify"/>
+    <action function="sethoverstyle" 
+            parameter="menu-item-checkbox-true-hilited"
+            event="stateaddnotify"/>
+    <action function="defaultpassivestyle" event="stateremovenotify"/>
+    <action function="defaultactivestyle" event="stateremovenotify"/>
+    <action function="defaulthoverstyle" event="stateremovenotify"/>
+  </actionlist>
+
+  <actionlist name="menu-item-checkbox-hover">
+    <inherit>menu-item-checkbox</inherit>
+    <action function="menuunmapothersubmenus"
+            event="enternotify"/>
+    <action function="menuaction"
+            event="buttonrelease"
+            button="anybutton"/>
+  </actionlist>
+
+  <match target="menu" window="^checkbox$"
+         style="menu-item-checkbox" actionlist="menu-item-checkbox"/>
+  <match target="menu" window="^checkbox$" state="active"
+         style="menu-item-checkbox-hilited"/>
+  <match target="menu" window="^checkbox$" state="hover"
+         style="menu-item-checkbox-hilited" 
+         actionlist="menu-item-checkbox-hover"/>
+  <match target="menu" window="^checkbox$" state="pressed"
+         style="menu-item-checkbox-hilited"/>
+
+
+  <style name="windowlist-menu-item" focusable="true" translucent="true"
+         height="26px">
+    <text font="font" size="font-size" fill_color="fg-color-active"
+          x="28px" y="17px" x2="15px" gravity2="northeast"
+          valign="center" text_halign="left">%m</text>
+    <dynamic x="6px" y="5px" width="16px" height="16px">
+      <try type="wmiconsvg"/>
+      <try type="wmiconimage"/>
+    </dynamic>
+  </style>
+
+  <style name="windowlist-menu-item-hilited" focusable="true"
+         translucent="true" height="26px">
+    <rectangle x="3px" y="3px" x2="3px" y2="3px" gravity2="southeast"
+               fill_color="#3d70a8" stroke_color="fg-color-active"
+               drawing_order="strokefill"
+               rx="2px" ry="2px"/>
+    <text font="font" size="font-size" fill_color="font-color-active"
+          x="28px" y="17px" x2="15px" gravity2="northeast"
+          valign="center" text_halign="left">%m</text>
+    <dynamic x="6px" y="5px" width="16px" height="16px">
+      <try type="wmiconsvg"/>
+      <try type="wmiconimage"/>
+    </dynamic>
+  </style>
+
+  <match target="menu" name="^windowlist$" window="^item$" 
+         style="windowlist-menu-item" actionlist="menu-item"/>
+  <match target="menu" name="^windowlist$" window="^item$" state="active"
+         style="windowlist-menu-item-hilited"/>
+  <match target="menu" name="^windowlist$" window="^item$" state="hover"
+         style="windowlist-menu-item-hilited" actionlist="menu-item-hover"/>
+  <match target="menu" name="^windowlist$" window="^item$" state="pressed"
+         style="windowlist-menu-item-hilited"/>
+
+</waimea>

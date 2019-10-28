@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+<!-- This is a good place to add user specific key-bindings.
+     The following creates a global key-binding that starts an xterm
+     with class name 'fterm' when  Control-Alt-Return is pressed -->
+  <actionlist name="global-key-bindings">
+    <action function="exec" parameter="xterm -name fterm"
+            event="keypress"
+            key="Return">
+      <modifier name="control"/>
+      <modifier name="mod1"/>
+    </action>
+  </actionlist>
+
+</meawm_ng>

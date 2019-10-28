@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!DOCTYPE meawm_ng SYSTEM "@pkgdatadir@/meawm_ng.dtd">
+
+<meawm_ng version="@pkgversion@">
+
+  <actionlist name="global-key-bindings" extend="true">
+    <action function="remapmenufocused" parameter="rootmenu"
+            event="keypress"
+            key="Escape">
+      <modifier name="control"/>
+      <modifier constraint="must_not_exist" name="moveresize"/>
+    </action>
+    <action function="taskswitcher" 
+            event="keypress" 
+            key="Tab">
+      <modifier name="mod1"/>
+      <modifier constraint="must_not_exist" name="moveresize"/>
+    </action>
+    <action function="movefocustoclosestnorthwindow"
+            event="keypress"
+            key="Up">
+      <modifier name="control"/>
+      <modifier name="mod1"/>
+    </action>
+    <action function="movefocustoclosestsouthwindow"
+            event="keypress"
+            key="Down">
+      <modifier name="control"/>
+      <modifier name="mod1"/>
+    </action>
+    <action function="movefocustoclosestwestwindow"
+            event="keypress"
+            key="Left">
+      <modifier name="control"/>
+      <modifier name="mod1"/>
+    </action>
+    <action function="movefocustoclosesteastwindow"
+            event="keypress"
+            key="Right">
+      <modifier name="control"/>
+      <modifier name="mod1"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="window-key-bindings" extend="true">
+    <inherit>global-key-bindings</inherit>
+    <action function="remapmenufocused" parameter="window"
+            event="keypress"
+            key="F1">
+      <modifier name="mod1"/>
+    </action>
+    <action function="windowclose"
+            event="keypress"
+            key="F4">
+      <modifier name="mod1"/>
+    </action>
+    <action function="windowtoggleshade"
+            event="keypress"
+            key="F2">
+      <modifier name="mod1"/>
+    </action>
+    <action function="endmoveresize"
+            event="keypress"
+            key="Escape">
+      <modifier name="moveresize"/>
+    </action>
+  </actionlist>
+
+  <actionlist name="mi-key-bindings">
+    <action function="menunextitem"
+            event="keypress"
+            key="Down"/>
+    <action function="menunextitem"
+            event="keypress"
+            key="Tab">
+      <modifier constraint="must_not_exist" name="shift"/>
+    </action>
+    <action function="menupreviousitem"
+            event="keypress"
+            key="Tab">
+      <modifier name="shift"/>
+    </action>
+    <action function="menupreviousitem"
+            event="keypress"
+            key="Up"/>
+    <action function="menuunmaptree"
+            event="keypress"
+            key="Escape"/>
+    <action function="menuunmap"
+            event="keypress"
+            key="Left"/>
+  </actionlist>
+
+  <actionlist name="menu-item-key-bindings" extend="true">
+    <inherit>mi-key-bindings</inherit>
+    <action function="menuaction"
+            event="keypress"
+            key="Return"/>
+    <action function="menuaction"
+            event="keypress"
+            key="space"/>
+    <action function="menuaction"
+            event="keyrelease"
+            key="Alt_L"/>
+    <action function="menuunmaptree"
+            event="keyrelease"
+            key="Alt_L"/>
+    <action function="menuunmaptree"
+            event="keypress"
+            key="Return"/>
+  </actionlist>
+
+  <actionlist name="menu-item-sub-key-bindings" extend="true">
+    <inherit>mi-key-bindings</inherit>
+    <action function="menuremapsubmenu"
+            event="keypress"
+            key="Return"/>
+    <action function="menuremapsubmenu"
+            event="keypress"
+            key="Right"/>
+  </actionlist>
+
+</meawm_ng>
+

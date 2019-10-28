@@ -1,0 +1,25 @@
+#!@pathperl@
+use POSIX;
+
+if (! $ARGV[0]) {
+     exit(1);
+}
+
+my $textopname = $ARGV[0];
+
+if ($ARGV[1]) {
+    $textopname = $ARGV[1];
+}
+
+open(FILE, $ARGV[0]) or die "Can't open file $ARGV[0]: $!\n";
+
+print "<meawm_ng version=\"@pkgversion@\">\n  <text name=\"$textopname\" static=\"true\"><![CDATA[";
+
+while (<FILE>) {
+    print $_;
+}
+print "]]></text>\n</meawm_ng>\n";
+
+close(FILE);
+
+exit(0);

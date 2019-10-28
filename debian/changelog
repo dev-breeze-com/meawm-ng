@@ -1,0 +1,56 @@
+meawm_ng (0.5.1) unstable; urgency=low
+
+  * New upstream release . 
+
+ -- Nobuhiro Iwamatsu <hemamu@t-base.ne.jp>  Tue,  1 Feb 2005 23:48:12 +0900
+
+meawm_ng (0.4.0-5) unstable; urgency=low
+
+  * QA Group upload orphaning this package
+  * debian/control: bumped build dependency on debhelper to 4 
+
+ -- Andrew Pollock <apollock@debian.org>  Fri, 17 Dec 2004 15:14:05 +1100
+
+meawm_ng (0.4.0-4) unstable; urgency=low
+
+  * QA Group upload orphaning this package
+
+ -- Andrew Pollock <apollock@debian.org>  Mon,  6 Dec 2004 19:57:50 +1100
+
+meawm_ng (0.4.0-3) unstable; urgency=high
+
+  * Closes the menu file in the wrong place bug (Closes: Bug#175028)
+  * Now uses the debain/compat file instead of DH_COMPAT
+  * depends on Eterm for the Esetroot
+
+ -- Jay Graves <jay@skabber.com>  Mon, 14 Mar 2003 21:45:32 -0700
+
+meawm_ng (0.4.0-2) unstable; urgency=low
+
+  * added imlib-dev and libfreetype6 build depends
+  * fixed the meawm_ng menu problems
+  * moved the styls, scripts and background images to /usr/share/meawm_ng
+
+ -- Jay Graves <jay@skabber.com>  Sun,  8 Dec 2002 19:35:04 -0700
+
+meawm_ng (0.4.0-1) unstable; urgency=high
+
+  * Closes the missing data bug (Closes: Bug#167879)
+  * Closes the hyphenate bug (Closes: Bug#167952)
+  * Updated to the latest meawm_ng release
+  * Added the styles dynamic menu in the default install
+  * Moved the restart and exit into the Window Manager menu section
+  * Added meawm_ng to the alternatives for x-window-manager
+
+ -- Jay Graves <jay@skabber.com>  Sun,  17 Nov 2002 09:10:25 -0700
+
+meawm_ng (0.3.5-1) unstable; urgency=low
+
+  * Closes the wnnp bug (Closes: Bug#150104)
+  * Initial Release.
+  * Removed the empty TODO and NEWS files
+  * Added proper Debian menu support
+  * Added a sample gdm startup script
+
+ -- Jay Graves <jay@skabber.com>  Sun, 27 Oct 2002 09:20:13 -0600
+

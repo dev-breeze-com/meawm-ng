@@ -1,0 +1,130 @@
+make  all-recursive
+make[1]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1'
+Making all in data
+make[2]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data'
+Making all in actions
+make[3]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions'
+Making all in sloppyfocusopaque
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/sloppyfocusopaque'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/sloppyfocusopaque'
+Making all in sloppyfocusnonopaque
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/sloppyfocusnonopaque'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/sloppyfocusnonopaque'
+Making all in clicktofocusopaque
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/clicktofocusopaque'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/clicktofocusopaque'
+Making all in clicktofocusnonopaque
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/clicktofocusnonopaque'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions/clicktofocusnonopaque'
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions'
+make[3]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/actions'
+Making all in styles
+make[3]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/styles'
+Making all in freedesktop
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/styles/freedesktop'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/styles/freedesktop'
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/styles'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/styles'
+make[3]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/styles'
+Making all in menus
+make[3]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/menus'
+Making all in icons
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/menus/icons'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/menus/icons'
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/menus'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/menus'
+make[3]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/menus'
+Making all in scripts
+make[3]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/scripts'
+Making all in icons
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/scripts/icons'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/scripts/icons'
+make[4]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/scripts'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/scripts'
+make[3]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data/scripts'
+make[3]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data'
+make[2]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/data'
+Making all in doc
+make[2]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/doc'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/doc'
+Making all in src
+make[2]: Entering directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/src'
+if g++ -DHAVE_CONFIG_H -I. -I. -I.. -DWAIMEA_PATH=\"/usr/share/meawm_ng\" -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng14 -I/usr/include/libdrm       -DSHAPE -DXINERAMA -DRENDER   -DRANDR -DPNG -I/usr/include/libpng14    -DXCURSOR       -march=i486 -I/usr/lib/i386-linux-gnu/glib-2.0/include  -MT Screen.o -MD -MP -MF ".deps/Screen.Tpo" \
+  -c -o Screen.o `test -f 'Screen.cc' || echo './'`Screen.cc; \
+then mv -f ".deps/Screen.Tpo" ".deps/Screen.Po"; \
+else rm -f ".deps/Screen.Tpo"; exit 1; \
+fi
+In file included from Style.hh:39:0,
+                 from Window.hh:54,
+                 from Net.hh:71,
+                 from Meawm_NG.hh:95,
+                 from Resources.hh:45,
+                 from Screen.hh:52,
+                 from Screen.cc:63:
+Render.hh: In function ‘void attributes_get_position_default(Parser*, Tst<char*>*, double*, double*, LenghtUnitType*, LenghtUnitType*, int*)’:
+Render.hh:157:44: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+                             x, y, xu, yu, g);
+                                            ^
+Render.hh:157:44: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:157:44: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh: In function ‘void attributes_get_size_default(Parser*, Tst<char*>*, double*, double*, LenghtUnitType*, LenghtUnitType*)’:
+Render.hh:167:70: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+     attributes_get_size(parser, attr, "width", "height", w, h, wu, hu);
+                                                                      ^
+Render.hh:167:70: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh: In function ‘void attributes_get_alignment_default(Parser*, Tst<char*>*, HorizontalAlignment*, VerticalAlignment*)’:
+Render.hh:175:70: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+     attributes_get_alignment(parser, attr, "halign", "valign", ha, va);
+                                                                      ^
+Render.hh:175:70: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh: In function ‘void attributes_get_area_default(Parser*, Tst<char*>*, double*, double*, LenghtUnitType*, LenghtUnitType*, int*, double*, double*, LenghtUnitType*, LenghtUnitType*, int*, bool*, bool*, double*, double*, LenghtUnitType*, LenghtUnitType*, HorizontalAlignment*, VerticalAlignment*)’:
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+                         w, h, wu, hu, ha, va);
+                                             ^
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Render.hh:205:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+Screen.cc: In member function ‘void WaScreen::findClosestWindow(int)’:
+Screen.cc:1135:26: error: ‘INT_MAX’ was not declared in this scope
+     int closest_diff_x = INT_MAX, closest_diff_y = INT_MAX;
+                          ^
+Screen.cc:1152:30: error: ‘closest_diff_y’ was not declared in this scope
+                 if (diff_y < closest_diff_y) {
+                              ^
+In file included from Meawm_NG.hh:92:0,
+                 from Resources.hh:45,
+                 from Screen.hh:52,
+                 from Screen.cc:63:
+Screen.cc: In member function ‘void WaScreen::addDockapp(Dockapp*, char*)’:
+Util.hh:65:39: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+ #define WA_STRDUP(str) __wa_strdup(str)
+                                       ^
+Screen.cc:1205:23: note: in expansion of macro ‘WA_STRDUP’
+         handlername = WA_STRDUP("default");
+                       ^
+make[2]: *** [Screen.o] Error 1
+make[2]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1/src'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/home/pierre/src/karakul/qt4/base/test/meawm_ng-0.5.1'
+make: *** [all] Error 2

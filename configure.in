@@ -1,0 +1,574 @@
+dnl configure.in for meawm_ng
+
+AC_INIT(src/main.cc)
+
+WAIMEA_VERSION=0.5.1
+
+AC_CONFIG_AUX_DIR(config)
+
+AM_INIT_AUTOMAKE(meawm_ng, $WAIMEA_VERSION)
+AM_CONFIG_HEADER(config.h)
+
+AM_MAINTAINER_MODE
+
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_CXX
+AC_STDC_HEADERS
+
+AC_PATH_XTRA
+
+AC_CHECK_PROGS(regex_cmd, sed)
+if test "x$regex_cmd" = "x"; then
+  AC_MSG_ERROR([** ERROR: sed is required.])
+fi
+
+AC_PATH_PROG(perl_cmd, perl)
+if test "x$perl_cmd" = "x"; then
+  AC_MSG_RESULT([** WARNING: perl is missing.])
+  perl_cmd="/usr/bin/perl"
+fi
+
+AC_SUBST(perl_cmd)
+
+use_thread="no"
+use_shape="no"
+use_xinerama="no"
+use_render="no"
+use_randr="no"
+use_png="no"
+use_svg="no"
+use_xcursor="no"
+use_debug="no"
+
+title='Meawm_NG: - warning -'
+dialog_command="echo \\\"$message\\\""
+xmessage_command="xmessage -buttons ok -center \\\"meawm_ng: %m\\\""
+zenity_command="zenity --title \\\"$title\\\" --info --text \\\"%m\\\""
+kdialog_command="kdialog --title \\\"$title\\\" --msgbox \\\"%m\\\""
+
+AC_CHECK_PROGS(zenity_cmd, zenity)
+if test "x$zenity_cmd" != "x"; then
+  dialog_command="$zenity_command";
+else
+  AC_CHECK_PROGS(kdialog_cmd, kdialog)
+  if test "x$kdialog_cmd" != "x"; then
+    dialog_command="$kdialog_command";
+  else
+    AC_CHECK_PROGS(xdialog_cmd, xmessage)
+    if test "x$xdialog_cmd" != "x"; then
+      dialog_command="$xmessage_command";
+    fi
+  fi
+fi
+
+AC_SUBST(dialog_command)
+
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+
+X_LIBS="$X_LIBS -lX11"
+AC_SUBST(X_CFLAGS)
+AC_SUBST(X_LIBS)
+
+x11_CPPFLAGS="$CPPFLAGS"
+CPPFLAGS="$CPPFLAGS $X_CFLAGS"
+x11_LIBS="$LIBS"
+LIBS="$LIBS $X_LIBS"
+
+AC_CHECK_HEADERS(ctype.h libgen.h signal.h stdio.h time.h unistd.h sys/select.h sys/signal.h sys/stat.h sys/time.h sys/types.h sys/wait.h regex.h errno.h limits.h fcntl.h math.h)
+
+AC_CHECK_FUNCS(strftime)
+
+AM_ICONV
+ICONV_LIBS="$LIBICONV"
+ICONV_CFLAGS="$INCICONV"
+AC_MSG_CHECKING([ICONV_CFLAGS])
+AC_MSG_RESULT([$ICONV_CFLAGS])
+AC_MSG_CHECKING([ICONV_LIBS])
+AC_MSG_RESULT([$ICONV_LIBS])
+AC_SUBST(ICONV_LIBS)
+AC_SUBST(ICONV_CFLAGS)
+
+dnl Check for nl_langinfo and CODESET
+LOCALE_LIBS=""
+AC_MSG_CHECKING([for nl_langinfo (CODESET)])
+AC_TRY_COMPILE([#include <langinfo.h>],
+   [char *codeset = nl_langinfo (CODESET);],
+   AC_DEFINE(HAVE_CODESET,1,[Have nl_langinfo (CODESET)])
+   have_codeset=yes,
+   have_codeset=no)
+AC_MSG_RESULT($have_codeset)
+
+AC_CHECK_LIB(xpg4, setlocale, LOCALE_LIBS="-lxpg4")
+
+AC_SUBST(LOCALE_LIBS)
+AC_MSG_CHECKING([LOCALE_LIBS])
+AC_MSG_RESULT([$LOCALE_LIBS])
+
+
+dnl Check expat configuration
+AC_ARG_WITH(expat,             [  --with-expat=DIR              Use Expat in DIR], expat=$withval, expat=yes)
+AC_ARG_WITH(expat-includes,    [  --with-expat-includes=DIR     Use Expat includes in DIR], expat_includes=$withval, expat_includes=yes)
+AC_ARG_WITH(expat-lib,         [  --with-expat-lib=DIR          Use Expat library in DIR], expat_lib=$withval, expat_lib=yes)
+
+case "$expat" in
+no)
+   ;;
+*)
+   case "$expat_includes" in
+   yes|no)
+      EXPAT_CFLAGS=""
+      ;;
+   *)
+      EXPAT_CFLAGS="-I$expat_includes"
+      ;;
+   esac
+   case "$expat_lib" in
+   yes)
+      case "$expat" in
+      yes)
+         EXPAT_LIBS="-lexpat"
+         ;;
+      *)
+         EXPAT_LIBS="-L$expat/lib -lexpat"
+         ;;
+      esac
+      ;;
+   no)
+      ;;
+   *)
+      EXPAT_LIBS="-L$expat_lib -lexpat"
+      ;;
+   esac
+
+   expatsaved_CPPFLAGS="$CPPFLAGS"
+   CPPFLAGS="$CPPFLAGS $EXPAT_CFLAGS"
+   expatsaved_LIBS="$LIBS"
+   LIBS="$LIBS $EXPAT_LIBS"
+
+   AC_CHECK_HEADER(expat.h)
+   case "$ac_cv_header_expat_h" in
+   no)
+      AC_CHECK_HEADER(xmlparse.h)
+      case "$ac_cv_header_xmlparse_h" in
+      no)
+         have_expat_header=no;
+         ;;
+      yes)
+         HAVE_XMLPARSE_H=1
+         AC_SUBST(HAVE_XMLPARSE_H)
+         AC_DEFINE_UNQUOTED(HAVE_XMLPARSE_H,$HAVE_XMLPARSE_H,
+         [Use xmlparse.h instead of expat.h])
+         have_expat_header=yes
+         ;;
+      esac
+      ;;
+   yes)
+      have_expat_header=yes
+      ;;
+   esac
+   case "$have_expat_header" in
+   no)
+      expat=no
+      ;;
+   yes)
+      AC_CHECK_FUNCS(XML_SetDoctypeDeclHandler)
+      case "$ac_cv_func_XML_SetDoctypeDeclHandler" in
+      yes)
+         HAVE_EXPAT=1
+         AC_SUBST(HAVE_EXPAT)
+         AC_DEFINE_UNQUOTED(HAVE_EXPAT,$HAVE_EXPAT,
+         [Found a useable expat library])
+         ;;
+      *)
+         expat=no
+         ;;
+      esac
+      ;;
+   esac
+   CPPFLAGS="$expatsaved_CPPFLAGS"
+   LIBS="$expatsaved_LIBS"
+   ;;
+esac
+AC_SUBST(EXPAT_LIBS)
+AC_SUBST(EXPAT_CFLAGS)
+
+case "$expat" in
+no)
+   AC_MSG_ERROR([** ERROR: Cannot find usable expat library. This could mean that your version is too old.])
+   ;;
+esac
+
+AC_MSG_CHECKING([EXPAT_CFLAGS])
+AC_MSG_RESULT([$EXPAT_CFLAGS])
+AC_MSG_CHECKING([EXPAT_LIBS])
+AC_MSG_RESULT([$EXPAT_LIBS])
+
+
+dnl Check for cairo library
+PKG_CHECK_MODULES(CAIRO, cairo >= 0.3.0)
+
+AC_SUBST(CAIRO_CFLAGS)
+AC_SUBST(CAIRO_LIBS)
+
+
+dnl Check whether to include debug code
+DEBUG_CFLAGS=""
+enableval="no"
+AC_MSG_CHECKING([whether to include debug code])
+AC_ARG_ENABLE(
+  debug, [  --enable-debug          include debug code [default=no]])
+
+: ${enableval="no"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  DEBUG_CFLAGS="-DDEBUG"
+  use_debug="yes"
+else
+  AC_MSG_RESULT([no])
+fi
+
+AC_SUBST(DEBUG_CFLAGS)
+
+
+dnl Check for threading
+THREAD_CFLAGS=""
+THREAD_LIBS=""
+enableval="no"
+have_pthread="no"
+xlibs_threadsafe="no"
+AC_MSG_CHECKING([whether to include threading support])
+AC_ARG_ENABLE(
+  thread, [  --enable-thread         include code for threading support [default=no]])
+
+: ${enableval="no"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  AC_CHECK_HEADERS(pthread.h sched.h)
+  AC_CHECK_LIB(pthread, pthread_create, have_pthread="yes",
+    AC_MSG_RESULT([** WARNING: Could not find pthread_create in libpthread])
+    AC_MSG_RESULT([** WARNING: Disabled threading support])
+  )
+else
+  AC_MSG_RESULT([no])
+fi
+
+if test x$have_pthread = "xyes"; then
+  AC_MSG_CHECKING([for thread-safe Xlib])
+  AC_TRY_RUN([
+#include <X11/Xlib.h>
+int main() { exit(!(XInitThreads())); }
+    ], AC_MSG_RESULT([yes]); xlibs_threadsafe="yes", 
+    AC_MSG_RESULT([no])
+    AC_MSG_RESULT([** WARNING: Couldn't find thread-safe Xlib])
+    AC_MSG_RESULT([** WARNING: Disabled threading support]),
+    AC_MSG_RESULT([yes]); xlibs_threadsafe="yes"
+  )
+fi
+
+if test x$xlibs_threadsafe = "xyes"; then
+  use_thread="yes"
+  THREAD_CFLAGS="-D_REENTRANT"; THREAD_LIBS="-lpthread"
+  AC_CHECK_LIB(rt, sched_getparam, THREAD_LIBS="$THREAD_LIBS -lrt")
+  AC_CHECK_FUNCS(localtime_r)
+  AC_MSG_CHECKING([THREAD_CFLAGS])
+  AC_MSG_RESULT([$THREAD_CFLAGS])
+  AC_MSG_CHECKING([THREAD_LIBS])
+  AC_MSG_RESULT([$THREAD_LIBS])
+  THREAD_CFLAGS="-DTHREAD $THREAD_CFLAGS";
+fi
+
+AC_SUBST(THREAD_CFLAGS)
+AC_SUBST(THREAD_LIBS)
+
+
+xext_saved_LIBS="$LIBS"
+LIBS="$CAIRO_LIBS $LIBS -lXext"
+xext_saved_CFLAGS="$CPPFLAGS"
+CPPFLAGS="$CPPFLAGS $CAIRO_CFLAGS"
+XEXT_LIBS=""
+
+dnl Check for SHAPE extension support and proper library files
+SHAPE_CFLAGS=""
+enableval="yes"
+AC_MSG_CHECKING([whether to build support for the SHAPE extension])
+AC_ARG_ENABLE(
+  shape, [  --enable-shape          enable support for the SHAPE extension [default=yes]])
+
+: ${enableval="yes"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  AC_CHECK_LIB(Xext, XShapeCombineShape,
+    use_shape="yes"; SHAPE_CFLAGS="-DSHAPE"; XEXT_LIBS="-lXext",
+    AC_MSG_RESULT([** WARNING: Could not find XShapeCombineShape in libXext])
+    AC_MSG_RESULT([** WARNING: Disabled SHAPE extension support])
+  )
+else
+  AC_MSG_RESULT([no])
+fi
+
+AC_SUBST(SHAPE_CFLAGS)
+
+
+dnl Check for XINERAMA extension support and proper library files.
+XINERAMA_CFLAGS=""
+XINERAMA_LIBS=""
+enableval="yes"
+AC_MSG_CHECKING([whether to build support for the XINERAMA extension])
+AC_ARG_ENABLE(
+  xinerama, [  --enable-xinerama       enable support for the XINERAMA extension [default=yes]])
+
+: ${enableval="yes"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  AC_CHECK_LIB(Xinerama, XineramaQueryScreens,
+    use_xinerama="yes"
+    XINERAMA_CFLAGS="-DXINERAMA"; XINERAMA_LIBS="-lXinerama"; XEXT_LIBS="-lXext",
+    AC_MSG_RESULT([** WARNING: Could not find XineramaQueryScreens in libXinerama])
+    AC_MSG_RESULT([** WARNING: Disabled XINERAMA extension support])
+  )
+  if test "x$use_xinerama" != "xno"; then
+    AC_MSG_CHECKING([XINERAMA_LIBS])
+    AC_MSG_RESULT([$XINERAMA_LIBS])
+  fi
+else
+  AC_MSG_RESULT([no])
+fi
+
+AC_SUBST(XINERAMA_CFLAGS)
+AC_SUBST(XINERAMA_LIBS)
+
+dnl Check for RENDER extension support and proper library files.
+RENDER_CFLAGS=""
+RENDER_LIBS=""
+enableval="yes"
+AC_MSG_CHECKING([whether to build support for the RENDER extension])
+AC_ARG_ENABLE(
+  render, [  --enable-render          enable support for the RENDER extension [default=yes]])
+
+: ${enableval="yes"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  PKG_CHECK_MODULES(RENDER, xrender >= 0.6, RENDER_CFLAGS="-DRENDER $RENDER_CFLAGS"; use_render="yes", [
+      AC_CHECK_LIB(Xrender, XRenderQueryExtension,
+        use_render="yes"
+        RENDER_CFLAGS="-DRENDER"; 
+        RENDER_LIBS="-lXrender";
+        AC_MSG_CHECKING([RENDER_LIBS])
+        AC_MSG_RESULT([$RENDER_LIBS]),
+        AC_MSG_RESULT([** WARNING: Could not find XRenderQueryExtension in libXrender])
+        AC_MSG_RESULT([** WARNING: Disabled RENDER extension support])
+  )])
+else
+  AC_MSG_RESULT([no])
+fi
+
+AC_SUBST(RENDER_CFLAGS)
+AC_SUBST(RENDER_LIBS)
+
+dnl Check for RANDR extension support and proper library files.
+RANDR_CFLAGS=""
+RANDR_LIBS=""
+enableval="yes"
+AC_MSG_CHECKING([whether to build support for the RANDR extension])
+AC_ARG_ENABLE(
+  randr, [  --enable-randr          enable support for the RANDR extension [default=yes]])
+
+: ${enableval="yes"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  AC_CHECK_LIB(Xrandr, XRRSelectInput,
+    use_randr="yes"
+    RANDR_CFLAGS="-DRANDR"; RANDR_LIBS="-lXrandr"; XEXT_LIBS="-lXext",
+    AC_MSG_RESULT([** WARNING: Could not find XRRSelectInput in libXrandr])
+    AC_MSG_RESULT([** WARNING: Disabled RANDR extension support])
+  )
+  if test "x$use_randr" != "xno"; then
+    AC_MSG_CHECKING([RANDR_LIBS])
+    AC_MSG_RESULT([$RANDR_LIBS])
+  fi
+else
+  AC_MSG_RESULT([no])
+fi
+
+AC_SUBST(RANDR_CFLAGS)
+AC_SUBST(RANDR_LIBS)
+
+AC_SUBST(XEXT_LIBS)
+LIBS="$xext_saved_LIBS"
+CPPFLAGS="$xext_saved_CFLAGS"
+
+
+dnl Check for png image support
+enableval="yes"
+PNG_CFLAGS=""
+LIBPNG_CFLAGS=""
+LIBPNG_LIBS=""
+AC_MSG_CHECKING([whether to include png image support])
+AC_ARG_ENABLE(
+  png, [  --enable-png            include png image support [default=yes]])
+
+: ${enableval="yes"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  PKG_CHECK_MODULES(LIBPNG, libpng, PNG_CFLAGS="-DPNG "; use_png="yes", use_png="no")
+  if test "$use_png" != "yes" ; then
+    AC_PATH_PROG(LIBPNG_CONFIG, libpng-config, no)
+    if test "x$LIBPNG_CONFIG" != "xno" ; then
+      use_png="yes"
+      LIBPNG_FLAGS="`libpng-config --cflags` `libpng-config --cppflags`"
+      LIBPNG_LIBS="`libpng-config --libs`"
+    else
+      AC_CHECK_LIB(png, png_read_info, use_png="yes", use_png="no")
+
+      if test "x$use_png" != "xyes"; then
+        AC_MSG_RESULT([** WARNING: libpng missing - PNG support disabled])
+      fi
+
+      if test "x$use_png" = "xyes"; then
+        AC_CHECK_HEADER(png.h, use_png="yes", use_png="no")
+        if test "x$use_png" != "xyes"; then
+          AC_MSG_RESULT([** WARNING: png.h missing - PNG support disabled])
+        else
+          LIBPNG_FLAGS=""
+          LIBPNG_LIBS="-lpng"
+        fi
+      fi
+    fi
+
+    if test "x$use_png" = "xyes"; then
+      AC_MSG_CHECKING([LIBPNG_CFLAGS])       
+      AC_MSG_RESULT([$LIBPNG_FLAGS])
+      AC_MSG_CHECKING([LIBPNG_LIBS])
+      AC_MSG_RESULT([$LIBPNG_LIBS])
+      PNG_CFLAGS="-DPNG "
+    fi
+  fi
+else
+  AC_MSG_RESULT([no])
+fi
+
+LIBPNG_CFLAGS="$PNG_CFLAGS$LIBPNG_CFLAGS"
+AC_SUBST(LIBPNG_CFLAGS)
+AC_SUBST(LIBPNG_LIBS) 
+
+
+dnl Check for svg support
+SVG_CFLAGS=""
+enableval="yes"
+AC_MSG_CHECKING([whether to include svg support])
+AC_ARG_ENABLE(
+  svg, [  --enable-svg            include svg support [default=yes]])
+
+: ${enableval="yes"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  PKG_CHECK_MODULES(LIBSVG_CAIRO, libsvg-cairo >= 0.1.4, SVG_CFLAGS="-DSVG "; use_svg="yes", AC_MSG_RESULT([** WARNING: svg support disabled]))
+else
+  AC_MSG_RESULT([no])
+fi
+
+LIBSVG_CAIRO_CFLAGS="$SVG_CFLAGS$LIBSVG_CAIRO_CFLAGS"
+AC_SUBST(LIBSVG_CAIRO_CFLAGS)
+AC_SUBST(LIBSVG_CAIRO_LIBS)
+
+dnl Check for xcursor support
+XCURSOR_CFLAGS=""
+enableval="yes"
+AC_MSG_CHECKING([whether to include xcursor support])
+AC_ARG_ENABLE(
+  xcursor, [  --enable-cursor         include xcursor support [default=yes]])
+
+: ${enableval="yes"}
+if test x$enableval = "xyes"; then
+  AC_MSG_RESULT([yes])
+  PKG_CHECK_MODULES(XCURSOR, xcursor >= 1.0, XCURSOR_CFLAGS="-DXCURSOR $XCURSOR_CFLAGS"; use_xcursor="yes", AC_MSG_RESULT([** WARNING: xcursor support disabled]))
+else
+  AC_MSG_RESULT([no])
+fi
+
+AC_SUBST(XCURSOR_CFLAGS)
+AC_SUBST(XCURSOR_LIBS)
+
+
+CPPFLAGS="$saved_CFLAGS"
+LIBS="$saved_LIBS"
+
+
+AC_OUTPUT([
+Makefile 
+src/Makefile
+util/Makefile
+data/Makefile
+data/actions/Makefile
+data/actions/sloppyfocusopaque/Makefile
+data/actions/sloppyfocusnonopaque/Makefile
+data/actions/clicktofocusopaque/Makefile
+data/actions/clicktofocusnonopaque/Makefile
+data/styles/Makefile
+data/styles/freedesktop/Makefile
+data/menus/Makefile
+data/menus/icons/Makefile
+data/scripts/Makefile
+data/scripts/icons/Makefile
+doc/Makefile
+])
+
+echo ""
+echo "Finished configure:"
+
+if [[ $use_thread = "yes" ]] ; then
+   echo "  with    thread";
+else
+   echo "  without thread";
+fi
+
+if [[ $use_shape = "yes" ]] ; then
+   echo "  with    shape";
+else
+   echo "  without shape";
+fi
+
+if [[ $use_xinerama = "yes" ]] ; then
+   echo "  with    xinerama";
+else
+   echo "  without xinerama";
+fi
+
+if [[ $use_render = "yes" ]] ; then
+   echo "  with    render";
+else
+   echo "  without render";
+fi
+
+if [[ $use_randr = "yes" ]] ; then
+   echo "  with    randr";
+else
+   echo "  without randr";
+fi
+
+if [[ $use_png = "yes" ]] ; then
+   echo "  with    png";
+else
+   echo "  without png";
+fi
+
+if [[ $use_svg = "yes" ]] ; then
+   echo "  with    svg";
+else
+   echo "  without svg";
+fi
+
+if [[ $use_xcursor = "yes" ]] ; then
+   echo "  with    xcursor";
+else
+   echo "  without xcursor";
+fi
+
+if [[ $use_debug = "yes" ]] ; then
+   echo "  with    debug";
+fi
+
+
+echo ""
